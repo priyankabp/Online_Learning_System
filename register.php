@@ -167,7 +167,7 @@
         			
         			<div class="col-sm-8 col-sm-offset-2">
         				<div class="footer-border"></div>
-        				<p>Made by <a href="https://in.linkedin.com/in/priyankaphapale" target="_blank">Priyanka</a>.</p>
+        				<p>Made by <a href="https://in.linkedin.com/in/priyankaphapale" target="_blank">Elona</a>.</p>
         			</div>
         			
         		</div>
