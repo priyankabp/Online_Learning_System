@@ -79,19 +79,8 @@
                             <a class="navbar-brand" href="#user">Welcome <strong><?php echo $_SESSION['username']; ?></strong> </a>
                         </li>
                         <li> 
-                                <a class="navbar-brand" href="index.php?logout='1'" style="color: red;">LogOut</a> 
+                            <a class="navbar-brand" href="home.php?logout='1'" style="color: red;">LogOut</a> 
                         </li>
-
-                        <!-- logged in user information -->
-                        <?php  if (isset($_SESSION['username'])) : ?>
-                            <li>
-                                <a class="navbar-brand" href="#user">Welcome <strong><?php echo $_SESSION['username']; ?></strong> </a>
-                            </li>
-                            <!--<p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>-->
-                            <li> 
-                                <a class="navbar-brand" href="index.php?logout='1'" style="color: red;">LogOut</a> 
-                            </li>
-                        <?php endif ?>   
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
