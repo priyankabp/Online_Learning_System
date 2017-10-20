@@ -1,3 +1,57 @@
 body{
-	padding-top: 60px;
+	padding-top: 80px;
+}
+
+.form-register {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-register .form-register-heading{
+  margin-bottom: 10px;
+}
+
+.form-register .form-register-heading{
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.form-register .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-register .form-control:focus {
+  z-index: 2;
+}
+.form-register input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-register input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+footer{
+	height: 50px;
+	line-height: 50px;
+	font-size: 12px;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+footer a{
+	font-weight: bold;
+}
+
+footer a:hover{
+	text-decoration: underline;
 }
