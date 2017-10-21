@@ -39,19 +39,80 @@ body{
   border-top-right-radius: 0;
 }
 
+.huge{
+  font-size: 40px;
+}
+
+.tag-boxes .panel-purple{
+  color: white;
+  background: #631198;
+}
+
+.tag-boxes .panel-purple a{
+  color: #631198;
+}
+
+.tag-boxes .panel-purple a:hover{
+  color: #8461B3;
+}
+
+.tag-boxes .panel-darkblue{
+  color: white;
+  background: #21379C;
+}
+
+.tag-boxes .panel-darkblue a{
+  color: #21379C;
+}
+
+.tag-boxes .panel-darkblue a:hover{
+  color: #5B5CB4;
+}
+
+.tag-boxes .panel-cyan{
+  color: white;
+  background: #00B0AF;
+}
+
+.tag-boxes .panel-cyan a{
+  color: #00B0AF;
+}
+
+.tag-boxes .panel-cyan a:hover{
+  color: #10C7C8;
+}
+
+.tag-boxes .panel-green{
+  color: white;
+  background: #5cb85c;
+}
+
+.tag-boxes .panel-green a{
+  color: #5cb85c;
+}
+
+.tag-boxes .panel-green a:hover{
+  color: #3d8b3d;
+}
+
 footer{
+  background: #FB5B59;
 	height: 50px;
 	line-height: 50px;
 	font-size: 12px;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
+  color: black;
+
 }
 
 footer a{
 	font-weight: bold;
+  color: white;
 }
 
 footer a:hover{
+  color: white;
 	text-decoration: underline;
 }
