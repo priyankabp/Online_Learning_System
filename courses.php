@@ -10,7 +10,7 @@
             <?php require_once('include/left-sidebar.php'); ?>
           </div>
           <div class="col-md-9">
-            <h1><i class="fa fa-folder-open" aria-hidden="true"></i> Courses <small>Different Courses</small></h1><hr>
+            <h1><i class="fa fa-book" aria-hidden="true"></i> Courses <small>Different Courses</small></h1><hr>
             <ol class="breadcrumb">
               <li><a href="home.php"><i class="fa fa-tachometer"></i> Dashboard</a></li>
               <li class="active"><i class="fa fa-folder-open"></i> Courses</li>

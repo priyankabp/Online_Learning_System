@@ -12,7 +12,7 @@
           </div>
 
           <div class="col-md-9">
-            <h1><i class="fa fa-folder-open" aria-hidden="true"></i> Assessments <small>Different Assessments</small></h1><hr>
+            <h1><i class="fa fa-graduation-cap" aria-hidden="true"></i> Assessments <small>Different Assessments</small></h1><hr>
             <ol class="breadcrumb">
               <li><a href="home.php"><i class="fa fa-tachometer"></i> Dashboard</a></li>
               <li class="active"><i class="fa fa-folder-open"></i> Assessments</li>
