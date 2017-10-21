@@ -12,9 +12,9 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><i class="fa fa-book" aria-hidden="true"></i> Add Course</a></li>
-            <li><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Module</a></li>
-            <li><a href="#"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Add Assesment</a></li>
+            <li><a href="add-course.php"><i class="fa fa-book" aria-hidden="true"></i> Add Course</a></li>
+            <li><a href="add-module.php"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Module</a></li>
+            <li><a href="add-assessment.php"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Add Assesment</a></li>
             <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
             <li><a href="#"><i class="fa fa-power-off" aria-hidden="true"></i> Log Out</a></li>
           </ul>
