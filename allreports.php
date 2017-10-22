@@ -12,18 +12,13 @@
           </div>
 
           <div class="col-md-9">
-            <h1><i class="fa fa-graduation-cap" aria-hidden="true"></i> Assessments <small>All Assessments</small></h1><hr>
+            <h1><i class="fa fa-graduation-cap" aria-hidden="true"></i> Assessments <small>All Reports</small></h1><hr>
             <ol class="breadcrumb">
               <li><a href="home.php"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-              <li class="active"><i class="fa fa-folder-open"></i> Assessments</li>
+              <li><a href="assessments.php"><i class="fa fa-folder-open"></i> Assessments</a></li>
+	      <li class="active"><i class="fa fa-folder-open"></i> All Reports</li>
             </ol>
           </div>
-
-          <div class="col-md-9">
-            <a href="allreports.php">All reports</a> &nbsp
-	    <a href="">New assessment</a>
-          </div>
-
         </div>
       </div>
-  <?php require_once('include/footer.php'); ?>
+<?php require_once('include/footer.php'); ?>
