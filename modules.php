@@ -1,13 +1,16 @@
 <?php require_once('include/top.php'); ?>
 <?php require_once('include/config.php'); ?>
+<?php require_once('server.php'); ?>
+
 <?php
+echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";
 echo "MODULE NAME GET : '", $_GET['module_name'], "'<BR> ";
 if ($_GET['module_name']) {
-    $sql = "INSERT INTO registration.modules (name, id_user) VALUES ('" . $_GET['module_name'] . "', '1')";
-    if ($conn->query($sql) === TRUE) {
+    $sql = "INSERT INTO registration.modules (m_name, id_user) VALUES ('" . $_GET['module_name'] . "', '1')";
+    if ($db->query($sql) === TRUE) {
         echo "New record created successfully";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $sql . "<br>" . $db->error;
     }
 }
 ?>
@@ -28,14 +31,29 @@ if ($_GET['module_name']) {
               <li class="active"><i class="fa fa-folder-open"></i> Modules</li>
             </ol>
 
+            <?php
+                $query = "SELECT id,course_name,m_name FROM modules";
+                $run = mysqli_query($db,$query);
+                if(mysqli_num_rows($run) > 0){
+
+              ?>
             <div class="row">
               <div class="col-md-6">
                 <form action="">
                   <div class="form-group">
-                    <label for="Role">Course:</label>
-                    <select name="role" id="role" class="form-control">
-                      <option value="course1">Course 1</option>
-                      <option value="course2">Course 2</option>
+                    <label for="Course">Course:</label>
+                    <select name="course_name" id="course" class="form-control">
+                        <?php
+                        $query = "SELECT * FROM registration.courses";
+                        if ($result = $db->query($query)) {
+                        /* fetch associative array */
+                        while ($row = $result->fetch_assoc()) {
+                            print "<option value=\"$row[course_id]\">${row[course_name]}</option>";
+                        }
+                        /* free result set */
+                        $result->free();
+                        }
+                        ?>
                     </select>
                   </div>
                   <div class="form-group">
@@ -46,6 +64,7 @@ if ($_GET['module_name']) {
 
                 </form>
               </div>
+              
               <div class="col-md-6">
                 <table class="table table-hover table-bordered table-striped">
                   <thead>
@@ -58,43 +77,29 @@ if ($_GET['module_name']) {
                     </tr>
                   </thead>
                   <tbody>
+                    <?php
+                      while ($row = mysqli_fetch_array($run)) {
+                        $id = $row['id'];
+                        $course_name = ucfirst($row['course_name']);
+                        $module_name = ucfirst($row['m_name']);
+                    ?>
                     <tr>
-                      <td>1</td>
-                      <td>Course 1</td>
-                      <td>Module 1</td>
+                      <td><?php echo $id;?></td>
+                      <td><?php echo $course_name;?></td>
+                      <td><?php echo $module_name;?></td>
                       <td><a href="#"><i class="fa fa-pencil"></i></a></td>
                       <td><a href="#"><i class="fa fa-times"></i></a></td>
                     </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Course 1</td>
-                      <td>Module 2</td>
-                      <td><a href="#"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#"><i class="fa fa-times"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Course 2</td>
-                      <td>Module 3</td>
-                      <td><a href="#"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#"><i class="fa fa-times"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Course 2</td>
-                      <td>Module 4</td>
-                      <td><a href="#"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#"><i class="fa fa-times"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Course 2</td>
-                      <td>Module 5</td>
-                      <td><a href="#"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#"><i class="fa fa-times"></i></a></td>
-                    </tr>
+                    <?php } ?>
                   </tbody>
                 </table>
+
+                <?php
+                  }
+                  else{
+                    echo "<center><h2>No Modules Avaliable </h2></center>";
+                  }
+                ?>
               </div>
             </div>
           </div>

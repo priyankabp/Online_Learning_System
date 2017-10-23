@@ -1,5 +1,6 @@
 <?php require_once('include/top.php'); ?>
 <?php require_once('include/config.php'); ?>
+<?php require_once('server.php'); ?>
 <?php
 /*echo "MODULE NAME GET : '", $_GET['assessment_name'], "'<BR> ";
 echo "MODULE NAME GET : '", $_GET['role'], "'<BR> ";
@@ -38,11 +39,11 @@ if ($_GET['assessment_name']) {
                         <label for="Role">Module:</label>
                         <select name="role" id="role" class="form-control">
                         <?php
-                        $query = "select id, name from registration.modules";
+                        $query = "SELECT id, m_name from registration.modules";
                         if ($result = $conn->query($query)) {
                         /* fetch associative array */
                         while ($row = $result->fetch_assoc()) {
-                            print "<option value=\"$row[id]\">${row[name]}</option>";
+                            print "<option value=\"$row[id]\">${row[m_name]}</option>";
                         }
                         /* free result set */
                         $result->free();

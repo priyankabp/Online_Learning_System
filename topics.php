@@ -1,4 +1,15 @@
 <?php require_once('include/top.php'); ?>
+<?php require_once('server.php');?>
+<?php
+  if ($_GET['topic_name']) {
+    $sql = "INSERT INTO registration.topics (course_name,module_name,topic_name,id_user) VALUES ('" . $_GET['course_name'] . "','" . $_GET['module_name'] . "','" . $_GET['topic_name'] . "','1')";
+    if ($db->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $db->error;
+    }
+}
+?>
   </head>
   <body>
     <div id="wrapper">
@@ -16,26 +27,51 @@
               <li class="active"><i class="fa fa-folder-open"></i> Topics</li>
             </ol>
 
+            <?php
+              $query = "SELECT id,course_name, module_name, topic_name FROM topics";
+              $run = mysqli_query($db,$query);
+              if (mysqli_num_rows($run) > 0) {
+              
+            ?>
+
             <div class="row">
               <div class="col-md-4">
                 <form action="">
                   <div class="form-group">
                     <label for="course">Course:</label>
-                    <select name="course" id="course" class="form-control">
-                      <option value="course1">Course 1</option>
-                      <option value="course2">Course 2</option>
+                    <select name="course_name" id="course" class="form-control">
+                        <?php
+                        $query = "SELECT * FROM registration.courses";
+                        if ($result = $db->query($query)) {
+                        /* fetch associative array */
+                        while ($row = $result->fetch_assoc()) {
+                            print "<option value=\"$row[course_id]\">${row[course_name]}</option>";
+                        }
+                        /* free result set */
+                        $result->free();
+                        }
+                        ?>
                     </select>
                   </div>
                   <div class="form-group">
                     <label for="module">Module Name:</label>
                     <select name="module" id="module" class="form-control">
-                      <option value="module1">Module 1</option>
-                      <option value="module2">Module 2</option>
+                        <?php
+                        $query = "SELECT id, m_name from registration.modules";
+                        if ($result = $db->query($query)) {
+                        /* fetch associative array */
+                        while ($row = $result->fetch_assoc()) {
+                            print "<option value=\"$row[id]\">${row[m_name]}</option>";
+                        }
+                        /* free result set */
+                        $result->free();
+                        }
+                        ?>
                     </select>
                   </div>
                   <div class="form-group">
                     <label for="module">Topic Name:</label>
-                    <input type="text" name="" placeholder="Module Name" class="form-control">
+                    <input type="text" name="topic_name" placeholder="Module Name" class="form-control">
                   </div>
                   <input type="submit" value="Add Topic" name="submit" class="btn btn-primary">
                 </form>
@@ -53,48 +89,30 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <?php
+                      while ($row = mysqli_fetch_array($run)) {
+                        $id = $row['id'];
+                        $course_name = $row['course_name'];
+                        $module_name = $row['module_name'];
+                        $topic_name = $row['topic_name'];
+                    ?>
                     <tr>
-                      <td>1</td>
-                      <td>Course 1</td>
-                      <td>Module 1</td>
-                      <td>Topic 1</td>
+                      <td><?php echo $id;?></td>
+                      <td><?php echo $course_name;?></td>
+                      <td><?php echo $module_name;?></td>
+                      <td><?php echo $topic_name;?></td>
                       <td><a href="#"><i class="fa fa-pencil"></i></a></td>
                       <td><a href="#"><i class="fa fa-times"></i></a></td>
                     </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Course 1</td>
-                      <td>Module 2</td>
-                      <td>Topic 1</td>
-                      <td><a href="#"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#"><i class="fa fa-times"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Course 2</td>
-                      <td>Module 2</td>
-                      <td>Topic 1</td>
-                      <td><a href="#"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#"><i class="fa fa-times"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Course 2</td>
-                      <td>Module 4</td>
-                      <td>Topic 3</td>
-                      <td><a href="#"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#"><i class="fa fa-times"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Course 2</td>
-                      <td>Module 5</td>
-                      <td>Topic 3</td>
-                      <td><a href="#"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#"><i class="fa fa-times"></i></a></td>
-                    </tr>
+                    <?php } ?>
                   </tbody>
                 </table>
+                 <?php
+                  }
+                  else{
+                    echo "<center><h2> No Courses Avaliable </h2></center>";
+                  }
+                 ?>
               </div>
             </div>
           </div>
