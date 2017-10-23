@@ -1,7 +1,7 @@
 <?php require_once('include/top.php'); ?>
 <?php require_once('include/config.php'); ?>
 <?php
-echo "MODULE NAME GET : '", $_GET['assessment_name'], "'<BR> ";
+/*echo "MODULE NAME GET : '", $_GET['assessment_name'], "'<BR> ";
 echo "MODULE NAME GET : '", $_GET['role'], "'<BR> ";
 if ($_GET['assessment_name']) {
     $sql = "INSERT INTO registration.assessments (name, id_module, id_user)
@@ -13,7 +13,7 @@ if ($_GET['assessment_name']) {
     }
     //$conn->close();
 }
-?>
+*/?>
   </head>
   <body>
     <div id="wrapper">
@@ -33,7 +33,7 @@ if ($_GET['assessment_name']) {
             </ol>
           </div>
             <div class="col-md-6">
-                <form action="">
+                <form action="newquiz.php">
                     <div class="form-group">
                         <label for="Role">Module:</label>
                         <select name="role" id="role" class="form-control">
