@@ -21,7 +21,7 @@
 
           <div class="col-md-9">
             <a href="allreports.php">All reports</a> &nbsp
-	    <a href="">New assessment</a>
+	    <a href="add-assessment.php">New assessment</a>
           </div>
 
         </div>

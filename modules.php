@@ -9,7 +9,6 @@ if ($_GET['module_name']) {
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-    $conn->close();
 }
 ?>
   </head>
