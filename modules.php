@@ -1,4 +1,17 @@
 <?php require_once('include/top.php'); ?>
+<?php require_once('include/config.php'); ?>
+<?php
+echo "MODULE NAME GET : '", $_GET['module_name'], "'<BR> ";
+if ($_GET['module_name']) {
+    $sql = "INSERT INTO registration.modules (name, id_user) VALUES ('" . $_GET['module_name'] . "', '1')";
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $conn->close();
+}
+?>
   </head>
   <body>
     <div id="wrapper">
@@ -28,9 +41,10 @@
                   </div>
                   <div class="form-group">
                     <label for="module">Module Name:</label>
-                    <input type="text" name="" placeholder="Module Name" class="form-control">
+                    <input type="text" name="module_name" placeholder="Module Name" class="form-control">
                   </div>
                   <input type="submit" value="Add Module" name="submit" class="btn btn-primary">
+
                 </form>
               </div>
               <div class="col-md-6">
