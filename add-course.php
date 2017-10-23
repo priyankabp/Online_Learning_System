@@ -1,4 +1,18 @@
 <?php require_once('include/top.php'); ?>
+<?php require_once('include/config.php'); ?>
+<?php require_once('server.php'); ?>
+
+<?php
+echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";
+if ($_GET['course_name']) {
+    $sql = "INSERT INTO registration.courses (course_name) VALUES ('" . $_GET['course_name'] . "')";
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
   </head>
   <body>
     <div id="wrapper">
@@ -21,7 +35,7 @@
                 <form action="">
                   <div class="form-group">
                     <label for="course">New Course Name:</label>
-                    <input type="text" name="" placeholder="Course Name" class="form-control">
+                    <input type="text" name="course_name" placeholder="Course Name" class="form-control">
                   </div>
                   <input type="submit" value="Add New Course" name="submit" class="btn btn-primary">
                 </form>

@@ -37,7 +37,7 @@
                     <label for="module">Topic Name:</label>
                     <input type="text" name="" placeholder="Module Name" class="form-control">
                   </div>
-                  <input type="submit" value="Add Module" name="submit" class="btn btn-primary">
+                  <input type="submit" value="Add Topic" name="submit" class="btn btn-primary">
                 </form>
               </div>
               <div class="col-md-8">
