@@ -1,5 +1,5 @@
 	  <footer class="text-center">
-        Copyright &copy; by <a href="#">Priyanka Phapale</a> from 2017 <?php echo  date_default_timezone_set('Y');?>.
+        Copyright &copy; by <a href="#">Priyanka,Inga Elona</a> from 2017 <?php echo  date_default_timezone_set('Y');?>.
       </footer>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

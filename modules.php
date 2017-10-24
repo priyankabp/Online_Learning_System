@@ -6,7 +6,7 @@
 echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";
 echo "MODULE NAME GET : '", $_GET['module_name'], "'<BR> ";
 if ($_GET['module_name']) {
-    $sql = "INSERT INTO registration.modules (m_name, id_user) VALUES ('" . $_GET['module_name'] . "', '1')";
+    $sql = "INSERT INTO registration.modules (course_name,m_name, id_user) VALUES ('" . $_GET['course_name'] . "','" . $_GET['module_name'] . "', '1')";
     if ($db->query($sql) === TRUE) {
         echo "New record created successfully";
     } else {
@@ -41,14 +41,14 @@ if ($_GET['module_name']) {
               <div class="col-md-6">
                 <form action="">
                   <div class="form-group">
-                    <label for="Course">Course:</label>
-                    <select name="course_name" id="course" class="form-control">
+                    <label for="course">Course:</label>
+                    <select name="course_name" id="course_name" class="form-control">
                         <?php
                         $query = "SELECT * FROM registration.courses";
                         if ($result = $db->query($query)) {
                         /* fetch associative array */
                         while ($row = $result->fetch_assoc()) {
-                            print "<option value=\"$row[course_id]\">${row[course_name]}</option>";
+                            print "<option value=\"$row[course_name]\">${row[course_name]}</option>";
                         }
                         /* free result set */
                         $result->free();

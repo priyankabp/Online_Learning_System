@@ -1,5 +1,18 @@
+html,body{
+  height: 100%;
+}
+
 body{
 	padding-top: 80px;
+}
+
+#wrapper{
+  min-height: 100%;
+  position: relative;
+}
+
+.body-section{
+  padding-bottom: 70px;
 }
 
 .form-register {
