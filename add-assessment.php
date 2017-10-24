@@ -39,11 +39,11 @@ if ($_GET['assessment_name']) {
                         <label for="Role">Module:</label>
                         <select name="role" id="role" class="form-control">
                         <?php
-                        $query = "SELECT id, m_name from registration.modules";
+                        $query = "SELECT id, module_name from registration.modules";
                         if ($result = $conn->query($query)) {
                         /* fetch associative array */
                         while ($row = $result->fetch_assoc()) {
-                            print "<option value=\"$row[id]\">${row[m_name]}</option>";
+                            print "<option value=\"$row[id]\">${row[module_name]}</option>";
                         }
                         /* free result set */
                         $result->free();
@@ -55,7 +55,7 @@ if ($_GET['assessment_name']) {
                         <label for="assessment">Assessment Name:</label>
                         <input type="text" name="assessment_name" placeholder="Assessment Name" class="form-control">
                     </div>
-                    <input type="submit" value="Add Assessment" name="submit" class="btn btn-primary">
+                    <input type="submit" value="Add Assessment" name="submit_assessment" class="btn btn-primary">
 
                 </form>
             </div>

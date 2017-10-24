@@ -1,8 +1,8 @@
 <?php require_once('include/top.php'); ?>
 <?php require_once('server.php');?>
 <?php
-  if ($_GET['topic_name']) {
-    $sql = "INSERT INTO registration.topics (course_name,module_name,topic_name,id_user) VALUES ('" . $_GET['course_name'] . "','" . $_GET['module_name'] . "','" . $_GET['topic_name'] . "','1')";
+  if ($_GET['submit_topic']) {
+    $sql = "INSERT INTO registration.topics (course_id,module_id,topic_name,id_user) VALUES ('1','1','" . $_GET['topic_name'] . "','1')";
     if ($db->query($sql) === TRUE) {
         echo "New record created successfully";
     } else {
@@ -28,7 +28,7 @@
             </ol>
 
             <?php
-              $query = "SELECT id,course_name, module_name, topic_name FROM topics";
+              $query = "SELECT id,course_id, module_id, topic_name FROM topics";
               $run = mysqli_query($db,$query);
               if (mysqli_num_rows($run) > 0) {
               
@@ -57,11 +57,11 @@
                     <label for="module">Module Name:</label>
                     <select name="module" id="module" class="form-control">
                         <?php
-                        $query = "SELECT id, m_name from registration.modules";
+                        $query = "SELECT id, module_name from registration.modules";
                         if ($result = $db->query($query)) {
                         /* fetch associative array */
                         while ($row = $result->fetch_assoc()) {
-                            print "<option value=\"$row[id]\">${row[m_name]}</option>";
+                            print "<option value=\"$row[id]\">${row[module_name]}</option>";
                         }
                         /* free result set */
                         $result->free();
@@ -70,10 +70,10 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="module">Topic Name:</label>
-                    <input type="text" name="topic_name" placeholder="Module Name" class="form-control">
+                    <label for="topic">Topic Name:</label>
+                    <input type="text" name="topic_name" placeholder="Topic Name" class="form-control">
                   </div>
-                  <input type="submit" value="Add Topic" name="submit" class="btn btn-primary">
+                  <input type="submit" value="Add Topic" name="submit_topic" class="btn btn-primary">
                 </form>
               </div>
               <div class="col-md-8">
@@ -92,14 +92,14 @@
                     <?php
                       while ($row = mysqli_fetch_array($run)) {
                         $id = $row['id'];
-                        $course_name = $row['course_name'];
-                        $module_name = $row['module_name'];
+                        $course_name = $row['course_id'];
+                        $module_name = $row['module_id'];
                         $topic_name = $row['topic_name'];
                     ?>
                     <tr>
                       <td><?php echo $id;?></td>
-                      <td><?php echo $course_name;?></td>
-                      <td><?php echo $module_name;?></td>
+                      <td></td>
+                      <td></td>
                       <td><?php echo $topic_name;?></td>
                       <td><a href="#"><i class="fa fa-pencil"></i></a></td>
                       <td><a href="#"><i class="fa fa-times"></i></a></td>

@@ -4,7 +4,7 @@
 
 <?php
 echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";
-if ($_GET['course_name']) {
+if ($_GET['submit_course']) {
     $sql = "INSERT INTO registration.courses (course_name) VALUES ('" . $_GET['course_name'] . "')";
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
@@ -43,7 +43,7 @@ if ($_GET['course_name']) {
                     <label for="course">Course Name:</label>
                     <input type="text" name="course_name" placeholder="Course Name" class="form-control">
                   </div>
-                  <input type="submit" value="Add Course" name="submit" class="btn btn-primary">
+                  <input type="submit" value="Add Course" name="submit_course" class="btn btn-primary">
                 </form>
               </div>
               <div class="col-md-6">

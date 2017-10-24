@@ -3,16 +3,16 @@
 
 <?php
 echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";echo "MODULE NAME GET : '", $_GET['module_name'], "'<BR> ";
-if ($_GET['module_name']) {
-    $sql = "INSERT INTO registration.modules (m_name, id_user) VALUES ('" . $_GET['module_name'] . "', '1')";
+if ($_GET['submit_module']) {
+    $sql = "INSERT INTO registration.modules (module_name, id_user) VALUES ('" . $_GET['module_name'] . "', '1')";
     if ($db->query($sql) === TRUE) {
         echo "New record created successfully";
     } else {
         echo "Error: " . $sql . "<br>" . $db->error;
     }
 }
-if ($_GET['topic_name']) {
-    $sql = "INSERT INTO registration.topics (course_name,module_name,topic_name,id_user) VALUES ('" . $_GET['course_name'] . "','" . $_GET['module_name'] . "','" . $_GET['topic_name'] . "','1')";
+if ($_GET['submit_topic']) {
+    $sql = "INSERT INTO registration.topics (course_id,module_id,topic_name,id_user) VALUES ('1','1','" . $_GET['topic_name'] . "','1')";
     if ($db->query($sql) === TRUE) {
         echo "New record created successfully";
     } else {
@@ -44,7 +44,7 @@ if ($_GET['topic_name']) {
                   <div class="form-group">
                     <h4><i class="fa fa-pencil-square-o" aria-hidden="true"></i> New Module</h4><hr>
                     <label for="course">Course:</label>
-                    <select name="course_name" id="course" class="form-control">
+                    <select name="course_name" id="course_name" class="form-control">
                         <?php
                         $query = "SELECT * FROM registration.courses";
                         if ($result = $db->query($query)) {
@@ -62,7 +62,7 @@ if ($_GET['topic_name']) {
                     <label for="module">New Module Name:</label>
                     <input type="text" name="module_name" placeholder="Module Name" class="form-control">
                   </div>
-                  <input type="submit" value="Add New Module" name="submit" class="btn btn-primary">
+                  <input type="submit" value="Add New Module" name="submit_module" class="btn btn-primary">
                 </form>
               </div>
               <div class="col-md-6">
@@ -86,13 +86,13 @@ if ($_GET['topic_name']) {
                   </div>
                   <div class="form-group">
                     <label for="module">Module Name:</label>
-                    <select name="module" id="module" class="form-control">
+                    <select name="module_name" id="module_name" class="form-control">
                         <?php
-                        $query = "SELECT id, m_name from registration.modules";
+                        $query = "SELECT id, module_name from registration.modules";
                         if ($result = $db->query($query)) {
                         /* fetch associative array */
                         while ($row = $result->fetch_assoc()) {
-                            print "<option value=\"$row[id]\">${row[m_name]}</option>";
+                            print "<option value=\"$row[id]\">${row[module_name]}</option>";
                         }
                         /* free result set */
                         $result->free();
@@ -101,10 +101,10 @@ if ($_GET['topic_name']) {
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="module">Topic Name:</label>
-                    <input type="text" name="topic_name" placeholder="Module Name" class="form-control">
+                    <label for="topic">Topic Name:</label>
+                    <input type="text" name="topic_name" placeholder="Topic Name" class="form-control">
                   </div>
-                  <input type="submit" value="Add New Topic" name="submit" class="btn btn-primary">
+                  <input type="submit" value="Add New Topic" name="submit_topic" class="btn btn-primary">
                 </form>
               </div>
             </div>
