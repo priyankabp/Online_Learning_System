@@ -36,8 +36,8 @@ if ($_GET['assessment_name']) {
             <div class="col-md-6">
                 <form action="newquiz.php">
                     <div class="form-group">
-                        <label for="Role">Module:</label>
-                        <select name="role" id="role" class="form-control">
+                        <label for="module">Module:</label>
+                        <select name="module" id="module" class="form-control">
                         <?php
                         $query = "SELECT id, module_name from registration.modules";
                         if ($result = $conn->query($query)) {

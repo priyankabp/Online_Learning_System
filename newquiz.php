@@ -3,12 +3,12 @@
 <?php
 
 echo "MODULE NAME GET : '", $_GET['assessment_name'], "'<BR> ";
-echo "MODULE NAME GET : '", $_GET['role'], "'<BR> ";
+echo "MODULE NAME GET : '", $_GET['module'], "'<BR> ";
 $a =  $_GET['assessment_name'];
-$b =   $_GET['role'];
+//$b =   $_GET['module'];
 if ($_GET['assessment_name']) {
     $sql = "INSERT INTO registration.assessments (name, id_module, id_user)
-    VALUES ('" . $a ."','". $_GET['role'] ."', '1')";
+    VALUES ('" . $a ."','". $_GET['module'] ."', '1')";
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
@@ -32,11 +32,11 @@ if ($_GET['assessment_name']) {
 
           <div class="col-md-9">
               <?php
-              $query = "select name from registration.modules where id = ".$_GET['role'].";";
+              $query = "select module_name from registration.modules where id = ".$_GET['module'].";";
               if ($result = $conn->query($query)) {
                   /* fetch associative array */
                   while ($row = $result->fetch_assoc()) {
-                      $b = $row['name'];
+                      $b = $row['module_name'];
                   }
                   /* free result set */
                   $result->free();
