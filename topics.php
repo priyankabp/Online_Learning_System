@@ -35,7 +35,7 @@
             ?>
 
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-7">
                 <form action="">
                   <div class="form-group">
                     <label for="course">Course:</label>
@@ -73,16 +73,19 @@
                     <label for="topic">Topic Name:</label>
                     <input type="text" name="topic_name" placeholder="Topic Name" class="form-control">
                   </div>
+                  <div class="form-group">
+                    <label for="topic">Description:</label>
+                    <!--<input type="text" name="topic_description" placeholder="Description" class="form-control"-->
+                    <textarea name="" id="description" rows="10" class="form-control"></textarea>
+                  </div>
                   <input type="submit" value="Add Topic" name="submit_topic" class="btn btn-primary">
                 </form>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-5">
                 <table class="table table-hover table-bordered table-striped">
                   <thead>
                     <tr>
                       <th>Sr #</th>
-                      <th>Course</th>
-                      <th>Module</th>
                       <th>Topic</th>
                       <th>Edit</th>
                       <th>Delete</th>
@@ -98,9 +101,7 @@
                     ?>
                     <tr>
                       <td><?php echo $id;?></td>
-                      <td></td>
-                      <td></td>
-                      <td><?php echo $topic_name;?></td>
+                      <td><a href="#"><?php echo $topic_name;?></td>
                       <td><a href="#"><i class="fa fa-pencil"></i></a></td>
                       <td><a href="#"><i class="fa fa-times"></i></a></td>
                     </tr>
