@@ -39,6 +39,7 @@ if ($_GET['assessment_name']) {
                       <td>
                           <form action="fill_in.php">
                               <input type="submit" value="Fill in the blank" name="submit_fill_in" class="btn btn-primary">
+                              <input type="hidden" name="assessment_name" value= <?php echo $_GET['assessment_name'] ?> >
                           </form>
                       </td>
                   </tr>
@@ -71,8 +72,8 @@ if ($_GET['assessment_name']) {
 
             <ol class="breadcrumb">
               <li><a href="home.php"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-              <li><a href="assessments.php"><i class="fa fa-folder-open"></i> Assessments</li>
-              <li class="active"><i class="fa fa-folder-open"></i><?php echo $_GET['assessment_name'] ?></li>
+              <li><a href="assessments.php">Assessments</li>
+              <li class="active"><?php echo $_GET['assessment_name'] ?></li>
             </ol>
           </div>
         </div>
