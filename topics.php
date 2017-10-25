@@ -75,7 +75,6 @@
                   </div>
                   <div class="form-group">
                     <label for="topic">Description:</label>
-                    <!--<input type="text" name="topic_description" placeholder="Description" class="form-control"-->
                     <textarea name="" id="description" rows="10" class="form-control"></textarea>
                   </div>
                   <input type="submit" value="Add Topic" name="submit_topic" class="btn btn-primary">
@@ -101,7 +100,7 @@
                     ?>
                     <tr>
                       <td><?php echo $id;?></td>
-                      <td><a href="#"><?php echo $topic_name;?></td>
+                      <td><a href="view-topic.php?topic_id=<?php echo $id; ?>"><?php echo $topic_name;?></td>
                       <td><a href="#"><i class="fa fa-pencil"></i></a></td>
                       <td><a href="#"><i class="fa fa-times"></i></a></td>
                     </tr>
