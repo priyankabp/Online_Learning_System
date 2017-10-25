@@ -28,6 +28,30 @@ if ($_GET['assessment_name']) {
 
           <div class="col-md-3">
             <?php require_once('include/left-sidebar.php'); ?>
+              <table class="table">
+                  <tbody>
+                  <tr>
+                      <td>
+                          <form action="mc_q.php">
+                              <input type="submit" value="Multiple Choice" name="submit_mc" class="btn btn-primary">
+                          </form>
+                      </td>
+                      <td>
+                          <form action="fill_in.php">
+                              <input type="submit" value="Fill in the blank" name="submit_fill_in" class="btn btn-primary">
+                          </form>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan=2 align="center">
+                          <form action="allreports.php">
+                              <input type="submit" value="Done" name="submit_done" class="btn btn-primary">
+                          </form>
+                      </td>
+
+                  </tr>
+                  </tbody>
+              </table>
           </div>
 
           <div class="col-md-9">
@@ -42,18 +66,15 @@ if ($_GET['assessment_name']) {
                   $result->free();
               }
               ?>
-            <h1><i class="fa fa-graduation-cap" aria-hidden="true"></i> <?php echo $_GET['assessment_name'] ?> <br><small><?php echo $b ?></small></h1><hr>
+            <h1><i class="fa fa-graduation-cap" aria-hidden="true"></i> <?php echo $_GET['assessment_name'] ?> <br><small><?php echo $b ?></small></h1>
+              <hr>
+
             <ol class="breadcrumb">
               <li><a href="home.php"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-              <li class="active"><i class="fa fa-folder-open"></i> Assessments</li>
+              <li><a href="assessments.php"><i class="fa fa-folder-open"></i> Assessments</li>
+              <li class="active"><i class="fa fa-folder-open"></i><?php echo $_GET['assessment_name'] ?></li>
             </ol>
           </div>
-
-          <div class="col-md-9">
-            <a href="allreports.php">All reports</a> &nbsp
-	    <a href="add-assessment.php">New assessment</a>
-          </div>
-
         </div>
       </div>
   <?php require_once('include/footer.php'); ?>
