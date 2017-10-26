@@ -1,3 +1,45 @@
+<?php require_once('server.php'); ?>
+<?php
+  // REGISTER USER
+  if (isset($_POST['reg_user'])) {
+    // receive all input values from the form
+    $username = mysqli_real_escape_string($db, $_POST['username']);
+    $email = mysqli_real_escape_string($db, $_POST['email']);
+    $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
+    $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+
+    $check_query = "SELECT * FROM users WHERE username = '$username' or email = '$email'";
+    $check_run = mysqli_query($db,$check_query);
+    // form validation: ensure that the form is correctly filled
+    if (empty($username) or empty($email) or empty($password_1)) {
+      $error = "All (*) fields are Required";
+    }
+    elseif ($password_1 != $password_2) {
+      $errors = "The two passwords do not match";
+    }
+    else if (mysqli_num_rows($check_run) > 0) {
+      $error = "Username or Email already exits";
+    }
+    // register user if there are no errors in the form
+    else{
+      $password = md5($password_1);//encrypt the password before saving in the database
+      $query = "INSERT INTO `registration`.`users` (`username`, `email`, `password`) 
+            VALUES('$username','$email', '$password');";
+      if(mysqli_query($db, $query)){
+        $msg = "New user Added";
+      }
+      else{
+        echo "Error: " . $query . "<br>" . $db->error;
+        $error = "New User Not Added";
+      }
+
+      $_SESSION['username'] = $username;
+      //$_SESSION['success'] = "You are now logged in";
+      header('location: home.php');
+    }
+
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -63,11 +105,19 @@
 
                         <div class="form-group">
                             <label class="sr-only" for="r-form-username">Username</label>
+                              <?php 
+                                if (isset($error)) {
+                                  echo "<span class='pull-right' style='color:red;'>$error</span>";
+                                }
+                                elseif (isset($msg)) {
+                                  echo "<span class='pull-right' style='color:green;'>$msg</span>";
+                                }
+                              ?>
                             <input type="text" name="username" placeholder="Username..." class="r-form-username form-control" id="r-form-username" value="<?php echo $username; ?>">
                         </div>
                         <div class="form-group">
                             <label class="sr-only" for="r-form-email">Email</label>
-                            <input type="text" name="email" placeholder="Email..." class="r-form-last-name form-control" id="r-form-email" value="<?php echo $email; ?>">
+                            <input type="email" name="email" placeholder="Email..." class="r-form-last-name form-control" id="r-form-email" value="<?php echo $email; ?>">
                         </div>
                         <div class="form-group">
                             <label class="sr-only" for="r-form-password">Password</label>
@@ -77,7 +127,7 @@
                             <label class="sr-only" for="r-form-email">Confirm Password</label>
                             <input type="password" name="password_2" placeholder="Confirm Password..." class="r-form-confirm-password form-control" id="r-form-confirm-password">
                         </div>
-                        <button type="submit" class="btn btn-primary" name="reg_user">Sign me up!</button>
+                        <input type="submit" class="btn btn-primary btn-block" name="reg_user" value="Sign me up!">
                         <p>Already a member? <a href="login.php">Sign In</a>
                         </p>
                       </form>

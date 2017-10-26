@@ -1,3 +1,28 @@
+<?php require_once('server.php'); ?>
+<?php
+// LOGIN USER
+  if (isset($_POST['login_user'])) {
+    $username = mysqli_real_escape_string($db, $_POST['username']);
+    $password = mysqli_real_escape_string($db, $_POST['password']);
+
+    if (empty($username) or empty($password)) {
+      $error = "All (*) fields are Required";
+    }
+    if (count($errors) == 0) {
+      $password = md5($password);
+      $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+      $results = mysqli_query($db, $query);
+
+      if (mysqli_num_rows($results) == 1) {
+        $_SESSION['username'] = $username;
+        //$_SESSION['success'] = "You are now logged in";
+        header('location: home.php');
+      }else {
+        array_push($errors, "Wrong username/password combination");
+      }
+    }
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -56,22 +81,20 @@
 
                 <div class="row register-form">
                     <div class="col-sm-4 col-sm-offset-1">
-                      <form class="form-signin">
+
+                      <form class="form-signin" method="post" action="login.php">
+                        <?php include('errors.php');?>
                         <h2 class="form-signin-heading">Sign In</h2>
                         <label for="inputUsername" class="sr-only">Username</label>
-                        <input type="email" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+                        <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
                         <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" value="remember-me"> Remember me
-                          </label>
-                        </div>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                        <input class="btn btn-lg btn-primary btn-block" name="login_user" type="submit" value="Sign in">
                         <p>
                           Not yet a member? <a href="register.php">Sign up</a>
                         </p>
                       </form>
+
                     </div>
 
                     <div class="col-sm-6 forms-right-icons">

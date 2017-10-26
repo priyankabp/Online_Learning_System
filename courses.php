@@ -4,7 +4,7 @@
 
 <?php
   # Delete Course functionality
-echo "Delet Course : '", $_GET['delete'], "'<BR> ";
+  echo "Delet Course : '", $_GET['delete'], "'<BR> ";
   if (isset($_GET['delete'])) {
     # Get the id of the course to be deleted
     $delete_id = $_GET['delete'];
@@ -61,7 +61,8 @@ echo "Delet Course : '", $_GET['delete'], "'<BR> ";
                   <input type="submit" value="Add Course" name="submit_course" class="btn btn-primary">
                 </form>
               </div>
-               <!-- Displaying message for the admin if the user is deleted or not-->
+
+               <!-- Displaying message for the admin if the course is deleted or not-->
                 <?php
                   if (isset($error)) {
                     echo "<span style='color:red;' class='pull-right'>$error</span>";
@@ -70,6 +71,7 @@ echo "Delet Course : '", $_GET['delete'], "'<BR> ";
                     echo "<span style='color:green;' class='pull-right'>$msg</span>";
                   }
                 ?>
+
               <div class="col-md-6">
                 <table class="table table-hover table-bordered table-striped">
                   <thead>
