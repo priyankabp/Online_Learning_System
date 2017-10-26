@@ -3,15 +3,30 @@
 <?php require_once('server.php'); ?>
 
 <?php
-echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";
-if ($_GET['submit_course']) {
-    $sql = "INSERT INTO registration.courses (course_name) VALUES ('" . $_GET['course_name'] . "')";
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+  # Delete Course functionality
+echo "Delet Course : '", $_GET['delete'], "'<BR> ";
+  if (isset($_GET['delete'])) {
+    # Get the id of the course to be deleted
+    $delete_id = $_GET['delete'];
+    # Delete query to delete the course
+    $delete_query = "DELETE FROM `registration`.`courses` WHERE `course_id`= $delete_id;";
+    if (mysqli_query($db,$delete_query)) {
+      $msg = "Course has been deleted";
     }
-}
+    else{
+      $error = "Course has not been deleted";
+    }
+  }
+
+  echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";
+  if ($_GET['submit_course']) {
+      $sql = "INSERT INTO registration.courses (course_name) VALUES ('" . $_GET['course_name'] . "')";
+      if ($conn->query($sql) === TRUE) {
+          echo "New record created successfully";
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+  }
 ?>
   </head>
   <body>
@@ -46,6 +61,15 @@ if ($_GET['submit_course']) {
                   <input type="submit" value="Add Course" name="submit_course" class="btn btn-primary">
                 </form>
               </div>
+               <!-- Displaying message for the admin if the user is deleted or not-->
+                <?php
+                  if (isset($error)) {
+                    echo "<span style='color:red;' class='pull-right'>$error</span>";
+                  }
+                  elseif (isset($msg)) {
+                    echo "<span style='color:green;' class='pull-right'>$msg</span>";
+                  }
+                ?>
               <div class="col-md-6">
                 <table class="table table-hover table-bordered table-striped">
                   <thead>
@@ -66,8 +90,8 @@ if ($_GET['submit_course']) {
                     <tr>
                       <td><?php echo $id;?></td>
                       <td><?php echo $course_name;?></td>
-                      <td><a href="#"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#"><i class="fa fa-times"></i></a></td>
+                      <td><a href="add-course.php?edit=<?php echo $id;?>"><i class="fa fa-pencil"></i></a></td>
+                      <td><a href="courses.php?delete=<?php echo $id;?>"><i class="fa fa-times"></i></a></td>
                     </tr>
                     <?php } ?>
                   </tbody>

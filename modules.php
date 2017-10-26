@@ -3,15 +3,30 @@
 <?php require_once('server.php'); ?>
 
 <?php
-echo "MODULE NAME GET : '", $_GET['module_name'], "'<BR> ";
-if ($_GET['submit_module']) {
-    $sql = "INSERT INTO registration.modules (module_name, id_user) VALUES ('" . $_GET['module_name'] . "', '1')";
-    if ($db->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $db->error;
+  echo "MODULE NAME GET : '", $_GET['module_name'], "'<BR> ";
+  if ($_GET['submit_module']) {
+      $sql = "INSERT INTO registration.modules (module_name, id_user) VALUES ('" . $_GET['module_name'] . "', '1')";
+      if ($db->query($sql) === TRUE) {
+          echo "New record created successfully";
+      } else {
+          echo "Error: " . $sql . "<br>" . $db->error;
+      }
+  }
+
+  # Delete Module functionality
+  echo "Delete Module : '", $_GET['delete'], "'<BR> ";
+  if (isset($_GET['delete'])) {
+    # Get the id of the Module to be deleted
+    $delete_id = $_GET['delete'];
+    # Delete query to delete the Module
+    $delete_query = "DELETE FROM `registration`.`modules` WHERE `id`= $delete_id;";
+    if (mysqli_query($db,$delete_query)) {
+      $msg = "Module has been deleted";
     }
-}
+    else{
+      $error = "Module has not been deleted";
+    }
+  }
 ?>
   </head>
   <body>
@@ -63,6 +78,16 @@ if ($_GET['submit_module']) {
 
                 </form>
               </div>
+
+              <!-- Displaying message for the admin if the module is deleted or not-->
+                <?php
+                  if (isset($error)) {
+                    echo "<span style='color:red;' class='pull-right'>$error</span>";
+                  }
+                  elseif (isset($msg)) {
+                    echo "<span style='color:green;' class='pull-right'>$msg</span>";
+                  }
+                ?>
               
               <div class="col-md-6">
                 <table class="table table-hover table-bordered table-striped">
@@ -86,8 +111,8 @@ if ($_GET['submit_module']) {
                       <td><?php echo $id;?></td>
                       <td></td>
                       <td><?php echo $module_name;?></td>
-                      <td><a href="#"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#"><i class="fa fa-times"></i></a></td>
+                      <td><a href="add-module.php?edit=<?php echo $id;?>"><i class="fa fa-pencil"></i></a></td>
+                      <td><a href="modules.php?delete=<?php echo $id;?>"><i class="fa fa-times"></i></a></td>
                     </tr>
                     <?php } ?>
                   </tbody>

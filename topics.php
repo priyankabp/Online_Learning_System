@@ -2,13 +2,28 @@
 <?php require_once('server.php');?>
 <?php
   if ($_GET['submit_topic']) {
-    $sql = "INSERT INTO registration.topics (course_id,module_id,topic_name,id_user) VALUES ('1','1','" . $_GET['topic_name'] . "','1')";
+    $sql = "INSERT INTO registration.topics (course_id,module_id,topic_name,topic_description,id_user) VALUES ('1','1','" . $_GET['topic_name'] . "','" . $_GET['topic_description'] . "','1')";
     if ($db->query($sql) === TRUE) {
         echo "New record created successfully";
     } else {
         echo "Error: " . $sql . "<br>" . $db->error;
     }
-}
+  }
+
+  # Delete Topic functionality
+  echo "Delete Topic : '", $_GET['delete'], "'<BR> ";
+  if (isset($_GET['delete'])) {
+    # Get the id of the Topic to be deleted
+    $delete_id = $_GET['delete'];
+    # Delete query to delete the Topic
+    $delete_query = "DELETE FROM `registration`.`topics` WHERE `id`= $delete_id;";
+    if (mysqli_query($db,$delete_query)) {
+      $msg = "Topic has been deleted";
+    }
+    else{
+      $error = "Topic has not been deleted";
+    }
+  }
 ?>
   </head>
   <body>
@@ -75,11 +90,22 @@
                   </div>
                   <div class="form-group">
                     <label for="topic">Description:</label>
-                    <textarea name="" id="description" rows="10" class="form-control"></textarea>
+                    <textarea name="topic_description" id="topic_description" rows="10" class="form-control"></textarea>
                   </div>
                   <input type="submit" value="Add Topic" name="submit_topic" class="btn btn-primary">
                 </form>
               </div>
+
+              <!-- Displaying message for the admin if the topic is deleted or not-->
+                <?php
+                  if (isset($error)) {
+                    echo "<span style='color:red;' class='pull-right'>$error</span>";
+                  }
+                  elseif (isset($msg)) {
+                    echo "<span style='color:green;' class='pull-right'>$msg</span>";
+                  }
+                ?>
+
               <div class="col-md-5">
                 <table class="table table-hover table-bordered table-striped">
                   <thead>
@@ -94,15 +120,15 @@
                     <?php
                       while ($row = mysqli_fetch_array($run)) {
                         $id = $row['id'];
-                        $course_name = $row['course_id'];
-                        $module_name = $row['module_id'];
+                        $course_id = $row['course_id'];
+                        $module_id = $row['module_id'];
                         $topic_name = $row['topic_name'];
                     ?>
                     <tr>
                       <td><?php echo $id;?></td>
                       <td><a href="view-topic.php?topic_id=<?php echo $id; ?>"><?php echo $topic_name;?></td>
-                      <td><a href="#"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#"><i class="fa fa-times"></i></a></td>
+                      <td><a href="add-module.php?edit=<?php echo $id;?>"><i class="fa fa-pencil"></i></a></td>
+                      <td><a href="topics.php?delete=<?php echo $id;?>"><i class="fa fa-times"></i></a></td>
                     </tr>
                     <?php } ?>
                   </tbody>
