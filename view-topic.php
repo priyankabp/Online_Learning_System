@@ -14,6 +14,7 @@
           $row = mysqli_fetch_array($run);
           $id = $row['id'];
           $topic_name = $row['topic_name'];
+          $topic_description = $row['topic_description'];
         }
         else{
           header('Location : topics.php');
@@ -35,7 +36,9 @@
             </ol>
 
             <div class="row">
-              
+              <p class="description">
+                 <?php echo $topic_description;?>
+              </p>
             </div>
           </div>
         </div>

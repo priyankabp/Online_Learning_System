@@ -70,7 +70,6 @@ if ($_GET['assessment_name']) {
               ?>
             <h1><i class="fa fa-graduation-cap" aria-hidden="true"></i> <?php echo $_GET['assessment_name'] ?> <br><small><?php echo $b ?></small></h1>
               <hr>
-
             <ol class="breadcrumb">
               <li><a href="home.php"><i class="fa fa-tachometer"></i> Dashboard</a></li>
               <li><a href="assessments.php">Assessments</li>

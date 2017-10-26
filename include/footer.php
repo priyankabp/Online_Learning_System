@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.js"></script>
     <script>
     	$(document).ready(function(){
-    		$('#description').summernote();
+    		$('#topic_description').summernote();
     	});
     </script>
   </body>
