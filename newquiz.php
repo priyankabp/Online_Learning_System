@@ -34,12 +34,13 @@ if ($_GET['assessment_name']) {
                       <td>
                           <form action="mc_q.php">
                               <input type="submit" value="Multiple Choice" name="submit_mc" class="btn btn-primary">
+                              <input type="hidden" name="assessment_name" value= "<?php echo $_GET['assessment_name'] ?>" >
                           </form>
                       </td>
                       <td>
                           <form action="fill_in.php">
                               <input type="submit" value="Fill in the blank" name="submit_fill_in" class="btn btn-primary">
-                              <input type="hidden" name="assessment_name" value= <?php echo $_GET['assessment_name'] ?> >
+                              <input type="hidden" name="assessment_name" value= "<?php echo $_GET['assessment_name'] ?>" >
                           </form>
                       </td>
                   </tr>

@@ -65,9 +65,9 @@ if ($_GET['question_content']) {
                                 <input type="text" name="option_blank" placeholder="Type answer(s) here" class="form-control">
                             </div>
                             <input type="submit" value="Save Question" name="submit_fill_question" class="btn btn-primary">
-                            <input type="hidden" name="assessment_name" value= <?php echo $_GET['assessment_name'] ?> >
+                            <input type="hidden" name="assessment_name" value= "<?php echo $_GET['assessment_name'] ?>" >
                         </form>
-            </div>
+                 </div>
         </div>
     </div>
 <?php require_once('include/footer.php'); ?>
