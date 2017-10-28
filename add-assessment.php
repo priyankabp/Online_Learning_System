@@ -35,6 +35,7 @@ if ($_GET['assessment_name']) {
           </div>
             <div class="col-md-6">
                 <form action="newquiz.php">
+                    <input type="hidden" name="page" value="create_assessment" />
                     <div class="form-group">
                         <label for="module">Module:</label>
                         <select name="module" id="module" class="form-control">

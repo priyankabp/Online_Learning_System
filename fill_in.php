@@ -3,36 +3,6 @@
 <?php
 
 $asmnt_name = $_GET['assessment_name'];
-echo "ASSESSMENT NAME GET : '", $_GET['assessment_name'], "'<BR> ";
-echo "ASSESSMENT NAME VAR : '", $asmnt_name, "'<BR> ";
-
-if ($_GET['question_content']) {
-    //echo $_GET['question_content'];
-
-    $sql = "INSERT INTO registration.questions (content, type, assessment_id)
-    SELECT '${_GET['question_content']}','fi', assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-    //echo $sql;
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully<br>";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-    //$conn->close();
-    $question_id= $conn->insert_id;
-    echo "question id: ", $question_id, "<br>";
-
-    $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
-    SELECT '${_GET['option_blank']}','y', $question_id, assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-    //echo $sql_answer;
-    //echo $sql;
-    if ($conn->query($sql_answer) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql_answer . "<br>" . $conn->error;
-    }
-}
 ?>
     </head>
 <body>
@@ -55,7 +25,8 @@ if ($_GET['question_content']) {
 
             <div class="col-md-8">
                 <div class="row">
-                        <form action="">
+                        <form action="newquiz.php">
+                            <input type="hidden" name="page" value="fill">
                             <div class="form-group">
                                 <label for="question">Question:</label>
                                 <input type="text" name="question_content" placeholder="Type question here" class="form-control">

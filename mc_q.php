@@ -3,67 +3,7 @@
 <?php
 
 $asmnt_name = $_GET['assessment_name'];
-echo "ASSESSMENT NAME GET : '", $_GET['assessment_name'], "'<BR> ";
-echo "ASSESSMENT NAME VAR : '", $asmnt_name, "'<BR> ";
 
-if ($_GET['question_content']) {
-    //echo $_GET['question_content'];
-
-    $sql = "INSERT INTO registration.questions (content, type, assessment_id)
-    SELECT '${_GET['question_content']}','mc', assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-    echo $sql;
-    echo "<br>";
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully<br>";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-    //$conn->close();
-    $question_id= $conn->insert_id;
-    echo "question id: ", $question_id, "<br>";
-
-    $correct_answer = $_GET['correct_input'] == 'r1' ? "y" : "n";
-    $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
-    SELECT '${_GET['mc_1']}', '$correct_answer', $question_id, assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-    if ($conn->query($sql_answer) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql_answer . "<br>" . $conn->error;
-    }
-
-    $correct_answer = $_GET['correct_input'] == 'r2' ? "y" : "n";
-    $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
-    SELECT '${_GET['mc_2']}', '$correct_answer', $question_id, assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-    if ($conn->query($sql_answer) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql_answer . "<br>" . $conn->error;
-    }
-
-
-    $correct_answer = $_GET['correct_input'] == 'r3' ? "y" : "n";
-    $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
-    SELECT '${_GET['mc_3']}', '$correct_answer', $question_id, assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-    if ($conn->query($sql_answer) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql_answer . "<br>" . $conn->error;
-    }
-
-    $correct_answer = $_GET['correct_input'] == 'r4' ? "y" : "n";
-    $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
-    SELECT '${_GET['mc_4']}', '$correct_answer', $question_id, assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-    if ($conn->query($sql_answer) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql_answer . "<br>" . $conn->error;
-    }
-}
 ?>
     </head>
 <body>
