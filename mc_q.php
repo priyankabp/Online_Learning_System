@@ -27,7 +27,8 @@ $asmnt_name = $_GET['assessment_name'];
             </div>
     <div class="col-md-8">
         <div class="row">
-            <form action="">
+            <form action="newquiz.php">
+                <input type="hidden" name="page" value="mc">
                 <div class="form-group">
                     <label for="question">Question:</label>
                     <input type="text" name="question_content" placeholder="Type question here" class="form-control">
