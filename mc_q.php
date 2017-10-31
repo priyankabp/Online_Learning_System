@@ -63,7 +63,7 @@ $asmnt_name = $_GET['assessment_name'];
 
                 <div class="col-md-8">
                 <input type="submit" value="Save Question" name="submit_mc_question" class="btn btn-primary">
-                <input type="hidden" name="assessment_name" value= <?php echo $_GET['assessment_name'] ?> >
+                <input type="hidden" name="assessment_name" value= "<?php echo $_GET['assessment_name'] ?>" >
                 </div>
             </form>
         </div>
