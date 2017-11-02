@@ -1,17 +1,19 @@
 <?php require_once('include/top.php'); ?>
 <?php require_once('server.php');?>
 <?php
-  if ($_GET['submit_topic']) {
+
+    if ($_GET['submit_topic']) {
     $sql = "INSERT INTO registration.topics (course_id,module_id,topic_name,topic_description,id_user) VALUES ('1','1','" . $_GET['topic_name'] . "','" . $_GET['topic_description'] . "','1')";
-    if ($db->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $db->error;
+      if ($db->query($sql) === TRUE) {
+          echo "New record created successfully";
+      } else {
+          echo "Error: " . $sql . "<br>" . $db->error;
+      }
     }
-  }
+
+    
 
   # Delete Topic functionality
-  echo "Delete Topic : '", $_GET['delete'], "'<BR> ";
   if (isset($_GET['delete'])) {
     # Get the id of the Topic to be deleted
     $delete_id = $_GET['delete'];
@@ -70,7 +72,7 @@
                   </div>
                   <div class="form-group">
                     <label for="module">Module Name:</label>
-                    <select name="module" id="module" class="form-control">
+                    <select name="module_name" id="module_name" class="form-control">
                         <?php
                         $query = "SELECT id, module_name from registration.modules";
                         if ($result = $db->query($query)) {
@@ -89,10 +91,10 @@
                     <input type="text" name="topic_name" placeholder="Topic Name" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="topic">Description:</label>
-                    <textarea name="topic_description" id="topic_description" rows="10" class="form-control"></textarea>
+                    <label for="topic">Topic Description:</label>
+                    <textarea name="topic_description" placeholder="Topic Description" class="form-control"></textarea>
                   </div>
-                  <input type="submit" value="Add Topic" name="submit_topic" class="btn btn-primary">
+                  <input type="submit" value="Add New Topic" name="submit_topic" class="btn btn-primary">
                 </form>
               </div>
 

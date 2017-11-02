@@ -23,7 +23,7 @@
             <a href="allreports.php">All quizzes</a> &nbsp
 	          <a href="add-assessment.php">New assessment</a>
           </div>
-
+          
         </div>
       </div>
   <?php require_once('include/footer.php'); ?>
