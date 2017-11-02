@@ -181,10 +181,12 @@ else if ($_GET['page'] == "fill")   {
                         $answer_query = "select answer, correct from registration.answers where question_id=$row[id]";
                             if ($answer_result = $conn->query($answer_query)) {
                                 /* fetch associative array */
+
                                 while ($answer_row = $answer_result->fetch_assoc()) {
+
                                     if ($row['type'] == "mc") {?>
                                         <div class="radio">
-                                            <label><input type="radio" name="optradio" <?=$answer_row['correct']=='y'?"checked=\"true\"":"" ?> ><?=$answer_row['answer']?></label>
+                                            <label><input type="radio" name="optradio<?=$i?>" <?=$answer_row['correct']=='y'?"checked=\"true\"":"" ?> ><?=$answer_row['answer']?></label>
                                         </div>
                                     <?php }
                                     else if ($row['type'] == "fi"){?>

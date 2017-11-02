@@ -90,7 +90,7 @@ if (isset($_GET['delete'])) {
                                 <td><?=$i++?></td>
                                 <td><?=$row['module_name']?></td>
                                 <td><a href="newquiz.php?assessment_name=<?=$row['name'] ?>"><?=$row['name']?></td>
-                                <td><a href="add-module.php?edit=1"><i class="fa fa-caret-square-o-right"></i></a></td>
+                                <td><a href="test_run.php?assessment_name=<?=$row['name'] ?>"><i class="fa fa-caret-square-o-right"></i></a></td>
                                 <td><a href="newquiz.php?assessment_name=<?=$row['name'] ?>"><i class="fa fa-pencil"></i></a></td>
                                 <td><a href="allreports.php?delete=<?=$row['id'] ?>"><i class="fa fa-times"></i></a></td>
                             </tr>
