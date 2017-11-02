@@ -1,108 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php 
+  session_start(); 
 
-<head>
+  if (!isset($_SESSION['username'])) {
+    $_SESSION['msg'] = "You must log in first";
+    header('location: login.php');
+  }
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION['username']);
+    header("location: login.php");
+  }
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="assets/css/simple-sidebar.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Start Bootstrap
-                    </a>
-                </li>
-                <li>
-                    <a href="#courses">Courses</a>
-                </li>
-                <li>
-                    <a href="#assignments">Assignments</a>
-                </li>
-                <li>
-                    <a href="#exams">Exams</a>
-                </li>
-                <li>
-                    <a href="#contact">Contact</a>
-                </li>
-            </ul>
+?>
+<?php require_once('include/top.php');  ?>
+  </head>
+  <body>
+    <?php require_once('include/header.php');  ?>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+          <?php require_once('include/left-sidebar.php');?>
         </div>
-        <!-- /#sidebar-wrapper -->
+        <div class="col-md-9">
+          <h1><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard <small>Statics Overview</small></h1><hr>
+          <ol class="breadcrumb">
+            <li class="active">Dashboard</a></li>
+          </ol>
 
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a href="#menu-toggle" class="btn btn-secondary btn-lg" id="menu-toggle">
-                        <span style="color:white" onclick="openNav()">&#9776; Project Name </span>
-                    </a>
+          <!--Items Box Open-->
+            <div class="row tag-boxes">
+
+              <!--Courses Box Open-->
+              <div class="col-md-6 col-lg-3">
+                <div class="panel panel-purple">
+                  <div class="panel-heading">
+                    <div class="row">
+                      <div class="col-xs-3">
+                        <i class="fa fa-book fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9">
+                        <div class="text-right huge">11</div>
+                        <div class="text-right">Courses</div>
+                      </div>
+                    </div>
+                  </div>
+                  <a href="#">
+                    <div class="panel-footer">
+                      <span class="pull-left"> View All Courses</span>
+                      <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                      <div class="clearfix"></div>
+                    </div>
+                  </a>
                 </div>
+              </div><!--Courses Box Close-->
 
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
+              <!--Module Box Open-->
+              <div class="col-md-6 col-lg-3">
+                <div class="panel panel-darkblue">
+                  <div class="panel-heading">
+                    <div class="row">
+                      <div class="col-xs-3">
+                        <i class="fa fa-pencil-square-o fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9">
+                        <div class="text-right huge">18</div>
+                        <div class="text-right">All Modules</div>
+                      </div>
+                    </div>
+                  </div>
+                  <a href="#">
+                    <div class="panel-footer">
+                      <span class="pull-left"> View All Modules</span>
+                      <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                      <div class="clearfix"></div>
+                    </div>
+                  </a>
+                </div>
+              </div><!--Module Box Close-->
 
-                        <!-- notification message -->
-                        <?php if (isset($_SESSION['success'])) : ?>
-                            <div class="error success" >
-                                <h3>
-                                    <?php 
-                                        echo $_SESSION['success']; 
-                                        unset($_SESSION['success']);
-                                    ?>
-                                </h3>
-                            </div>
-                        <?php endif ?>
+              <!--Assessment Box Open-->
+              <div class="col-md-6 col-lg-3">
+                <div class="panel panel-cyan">
+                  <div class="panel-heading">
+                    <div class="row">
+                      <div class="col-xs-3">
+                        <i class="fa fa-graduation-cap fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9">
+                        <div class="text-right huge">30</div>
+                        <div class="text-right">All Assessments</div>
+                      </div>
+                    </div>
+                  </div>
+                  <a href="#">
+                    <div class="panel-footer">
+                      <span class="pull-left"> View All Assessments</span>
+                      <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                      <div class="clearfix"></div>
+                    </div>
+                  </a>
+                </div>
+              </div><!--Assessments Box Close-->
 
-                        <li>
-                            <a class="navbar-brand" href="#user">Welcome <strong><?php echo $_SESSION['username']; ?></strong> </a>
-                        </li>
-                        <li> 
-                            <a class="navbar-brand" href="home.php?logout='1'" style="color: red;">LogOut</a> 
-                        </li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
+              <!--Studnts Box Open-->
+              <div class="col-md-6 col-lg-3">
+                <div class="panel panel-green">
+                  <div class="panel-heading">
+                    <div class="row">
+                      <div class="col-xs-3">
+                        <i class="fa fa-users fa-5x"></i>
+                      </div>
+                      <div class="col-xs-9">
+                        <div class="text-right huge">9</div>
+                        <div class="text-right">All Students</div>
+                      </div>
+                    </div>
+                  </div>
+                  <a href="#">
+                    <div class="panel-footer">
+                      <span class="pull-left"> View All Students</span>
+                      <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                      <div class="clearfix"></div>
+                    </div>
+                  </a>
+                </div>
+              </div><!--Students Box Close-->
+            </div><hr><!-- Items Box Close -->
 
-
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
     </div>
-    <!-- /#wrapper -->
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/popper/popper.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Menu Toggle Script -->
-    <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
-
-</body>
-
-</html>
+<?php require_once('include/footer.php'); ?>

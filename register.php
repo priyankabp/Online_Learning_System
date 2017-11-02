@@ -1,164 +1,164 @@
-<?php include('server.php') ?>
+<?php require_once('server.php'); ?>
+<?php
+  // REGISTER USER
+  if (isset($_POST['reg_user'])) {
+    // receive all input values from the form
+    $username = mysqli_real_escape_string($db, $_POST['username']);
+    $email = mysqli_real_escape_string($db, $_POST['email']);
+    $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
+    $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+
+    $check_query = "SELECT * FROM users WHERE username = '$username' or email = '$email'";
+    $check_run = mysqli_query($db,$check_query);
+    // form validation: ensure that the form is correctly filled
+    if (empty($username) or empty($email) or empty($password_1)) {
+      $error = "All (*) fields are Required";
+    }
+    elseif ($password_1 != $password_2) {
+      $errors = "The two passwords do not match";
+    }
+    else if (mysqli_num_rows($check_run) > 0) {
+      $error = "Username or Email already exits";
+    }
+    // register user if there are no errors in the form
+    else{
+      $password = md5($password_1);//encrypt the password before saving in the database
+      $query = "INSERT INTO `registration`.`users` (`username`, `email`, `password`) 
+            VALUES('$username','$email', '$password');";
+      if(mysqli_query($db, $query)){
+        $msg = "New user Added";
+      }
+      else{
+        echo "Error: " . $query . "<br>" . $db->error;
+        $error = "New User Not Added";
+      }
+
+      $_SESSION['username'] = $username;
+      //$_SESSION['success'] = "You are now logged in";
+      header('location: home.php');
+    }
+
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Register | OLS</title>
 
-    <head>
+    <!-- Bootstrap -->
+    <link href="images/favicon.png" rel="icon">
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/animated.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Online Lerning System</title>
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="assets/css/form-elements.css">
-        <link rel="stylesheet" href="assets/css/style.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Online Learning System</a>
+        </div>
+      </div>
+    </nav>
 
-        <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="assets/ico/favicon.png">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
 
-    </head>
-
-    <body>
-
-        <!-- Top content -->
+    <!-- Top content -->
         <div class="top-content">
-        	<div class="container">
-                	
+          <div class="container">
+                  
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2 text">
                         <h1>Online Lerning System</h1>
                         <div class="description">
-                        	<p>
-	                         	This web based learning system framework will allow instructors to create any online learning system.
-                        	</p>
+                          <p>
+                            This web based learning system framework will allow instructors to create any online learning system.
+                          </p>
                         </div>
                     </div>
                 </div>
-                
-                <div class="row">
-                    <div class="col-sm-10 col-sm-offset-1 show-forms">
-                    	<span class="show-register-form active">Register</span> 
-                    	<span class="show-forms-divider">/</span> 
-                    	<span class="show-login-form">Login</span>
-                    </div>
-                </div>
-                
+
                 <div class="row register-form">
                     <div class="col-sm-4 col-sm-offset-1">
-						<form role="form" action="register.php" method="post" class="r-form">
+                      <form role="form" action="register.php" method="post" class="form-register">
 
-                            <?php include('errors.php'); ?>
+                        <h2 class="form-register-heading">Register</h2>
+                        <?php include('errors.php'); ?>
 
-	                    	<div class="form-group">
-	                    		<label class="sr-only" for="r-form-username">Username</label>
-	                        	<input type="text" name="username" placeholder="Username..." class="r-form-username form-control" id="r-form-username" value="<?php echo $username; ?>">
-	                        </div>
-	                        <div class="form-group">
-	                        	<label class="sr-only" for="r-form-email">Email</label>
-	                        	<input type="text" name="email" placeholder="Email..." class="r-form-last-name form-control" id="r-form-email" value="<?php echo $email; ?>">
-	                        </div>
-	                        <div class="form-group">
-	                        	<label class="sr-only" for="r-form-password">Password</label>
-	                        	<input type="password" name="password_1" placeholder="Password..." class="r-form-password form-control" id="r-form-password">
-	                        </div>
-	                        <div class="form-group">
-                                <label class="sr-only" for="r-form-email">Confirm Password</label>
-                                <input type="password" name="password_2" placeholder="Confirm Password..." class="r-form-confirm-password form-control" id="r-form-confirm-password">
-                            </div>
-				            <button type="submit" class="btn" name="reg_user">Sign me up!</button>
-						</form>
-                    </div>
-                    <div class="col-sm-6 forms-right-icons">
-						<div class="row">
-							<div class="col-sm-2 icon"><i class="fa fa-pencil"></i></div>
-							<div class="col-sm-10">
-								<h3>Beautiful Forms</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-2 icon"><i class="fa fa-commenting"></i></div>
-							<div class="col-sm-10">
-								<h3>Awesome Login</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-2 icon"><i class="fa fa-magic"></i></div>
-							<div class="col-sm-10">
-								<h3>Great Registration</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-							</div>
-						</div>
-                    </div>
-                </div>
-                
-                <div class="row login-form">
-                    <div class="col-sm-4 col-sm-offset-1">
-						<form role="form" action="register.php" method="post" class="l-form">
-
-                            <?php include('errors.php'); ?>
-
-	                    	<div class="form-group">
-	                    		<label class="sr-only" for="l-form-username">Username</label>
-	                        	<input type="text" name="username" placeholder="Username..." class="l-form-username form-control" id="l-form-username">
-	                        </div>
-	                        <div class="form-group">
-	                        	<label class="sr-only" for="l-form-password">Password</label>
-	                        	<input type="password" name="password" placeholder="Password..." class="l-form-password form-control" id="l-form-password">
-	                        </div>
-				            <button type="submit" class="btn" name="login_user">Sign in!</button>
-				    	</form>
-				    	<div class="social-login">
-                        	<p>Or login with:</p>
-                        	<div class="social-login-buttons">
-	                        	<a class="btn btn-link-1" href="#"><i class="fa fa-facebook"></i></a>
-	                        	<a class="btn btn-link-1" href="#"><i class="fa fa-twitter"></i></a>
-	                        	<a class="btn btn-link-1" href="#"><i class="fa fa-google-plus"></i></a>
-                        	</div>
+                        <div class="form-group">
+                            <label class="sr-only" for="r-form-username">Username</label>
+                              <?php 
+                                if (isset($error)) {
+                                  echo "<span class='pull-right' style='color:red;'>$error</span>";
+                                }
+                                elseif (isset($msg)) {
+                                  echo "<span class='pull-right' style='color:green;'>$msg</span>";
+                                }
+                              ?>
+                            <input type="text" name="username" placeholder="Username..." class="r-form-username form-control" id="r-form-username" value="<?php echo $username; ?>">
                         </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="r-form-email">Email</label>
+                            <input type="email" name="email" placeholder="Email..." class="r-form-last-name form-control" id="r-form-email" value="<?php echo $email; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="r-form-password">Password</label>
+                            <input type="password" name="password_1" placeholder="Password..." class="r-form-password form-control" id="r-form-password">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="r-form-email">Confirm Password</label>
+                            <input type="password" name="password_2" placeholder="Confirm Password..." class="r-form-confirm-password form-control" id="r-form-confirm-password">
+                        </div>
+                        <input type="submit" class="btn btn-primary btn-block" name="reg_user" value="Sign me up!">
+                        <p>Already a member? <a href="login.php">Sign In</a>
+                        </p>
+                      </form>
                     </div>
+
                     <div class="col-sm-6 forms-right-icons">
-						<div class="row">
-							<div class="col-sm-2 icon"><i class="fa fa-user"></i></div>
-							<div class="col-sm-10">
-								<h3>New Features</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-2 icon"><i class="fa fa-eye"></i></div>
-							<div class="col-sm-10">
-								<h3>Easy To Use</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-2 icon"><i class="fa fa-twitter"></i></div>
-							<div class="col-sm-10">
-								<h3>Social Integrated</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-							</div>
-						</div>
+                      <div class="row">
+                        <div class="col-md-4 icon"></div>
+                        <div class="col-md-8">
+                          <h3><i class="fa fa-file-text-o" aria-hidden="true"></i> Courses</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4 icon"></div>
+                        <div class="col-md-8">
+                          <h3><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modules</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4 icon"></div>
+                        <div class="col-md-8">
+                          <h3><i class="fa fa-graduation-cap" aria-hidden="true"></i> Assessments</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
+                        </div>
+                      </div>
                     </div>
                 </div>
-                    
-        	</div>
         </div>
+<<<<<<< HEAD
 
         <!-- Footer -->
         <footer>
@@ -187,3 +187,6 @@
     </body>
 
 </html>
+=======
+<?php require_once('include/footer.php'); ?>
+>>>>>>> master
