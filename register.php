@@ -7,6 +7,7 @@
     $email = mysqli_real_escape_string($db, $_POST['email']);
     $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
     $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+    $role = mysqli_real_escape_string($db, $_POST['role']);
 
     $check_query = "SELECT * FROM users WHERE username = '$username' or email = '$email'";
     $check_run = mysqli_query($db,$check_query);
@@ -23,8 +24,8 @@
     // register user if there are no errors in the form
     else{
       $password = md5($password_1);//encrypt the password before saving in the database
-      $query = "INSERT INTO `registration`.`users` (`username`, `email`, `password`) 
-            VALUES('$username','$email', '$password');";
+      $query = "INSERT INTO `registration`.`users` (`username`, `email`, `password`,`role`) 
+            VALUES('$username','$email', '$password','$role');";
       if(mysqli_query($db, $query)){
         $msg = "New user Added";
       }
@@ -126,6 +127,13 @@
                         <div class="form-group">
                             <label class="sr-only" for="r-form-email">Confirm Password</label>
                             <input type="password" name="password_2" placeholder="Confirm Password..." class="r-form-confirm-password form-control" id="r-form-confirm-password">
+                        </div>
+                        <div class="form-group">
+                          <select name="role">
+                            <option value="select">Select your role</option>
+                            <option value="student">Student</option>
+                            <option value="instructor">Instructor</option>
+                          </select>
                         </div>
                         <input type="submit" class="btn btn-primary btn-block" name="reg_user" value="Sign me up!">
                         <p>Already a member? <a href="login.php">Sign In</a>
