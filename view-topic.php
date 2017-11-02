@@ -8,7 +8,7 @@
       <?php
       if (isset($_GET['topic_id'])) {
         $topic_id = $_GET['topic_id'];
-        $query = "SELECT topic_name FROM topics WHERE id = '$topic_id' LIMIT 1";
+        $query = "SELECT topic_name,topic_description FROM topics WHERE id = '$topic_id' LIMIT 1";
         $run = mysqli_query($db,$query);
         if(mysqli_num_rows($run) > 0){
           $row = mysqli_fetch_array($run);
@@ -35,7 +35,7 @@
               <li class="active"> <?php echo $topic_name;?></li>
             </ol>
 
-            <div class="row">
+            <div>
               <p class="description">
                  <?php echo $topic_description;?>
               </p>
