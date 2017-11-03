@@ -70,10 +70,10 @@
                   
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2 text">
-                        <h1>Online Lerning System</h1>
+                        <h1 align="center">Online Lerning System</h1>
                         <div class="description">
-                          <p>
-                            This web based learning system framework will allow instructors to create any online learning system.
+                          <p align="center">
+                            This web based learning system framework will allow instructors to create any online learning program.
                           </p>
                         </div>
                     </div>

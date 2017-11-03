@@ -88,10 +88,10 @@
                   
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2 text">
-                        <h1>Online Lerning System</h1>
+                        <h1 align="center">Online Lerning System</h1>
                         <div class="description">
-                          <p>
-                            This web based learning system framework will allow instructors to create any online learning system.
+                          <p align="center">
+                            This web based learning system framework will allow instructors to create any online learning program.
                           </p>
                         </div>
                     </div>
@@ -145,6 +145,7 @@
                       <div class="row">
                         <div class="col-md-4 icon"></div>
                         <div class="col-md-8">
+                          <br><br><br>
                           <h3><i class="fa fa-file-text-o" aria-hidden="true"></i> Courses</h3>
                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
                         </div>
