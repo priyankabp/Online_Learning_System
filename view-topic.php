@@ -1,7 +1,7 @@
 <?php require_once('include/top.php'); 
   if (!isset($_SESSION['username'])) {
       header('Location: login.php');
-    }
+  }
 ?>
 <?php require_once('server.php');?>
   </head>

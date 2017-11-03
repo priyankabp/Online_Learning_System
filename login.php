@@ -14,7 +14,10 @@
       $results = mysqli_query($db, $query);
 
       if (mysqli_num_rows($results) == 1) {
+        $row = mysqli_fetch_array($results);
+        $role = $row['role'];
         $_SESSION['username'] = $username;
+        $_SESSION['role'] = $role;
         //$_SESSION['success'] = "You are now logged in";
         header('location: home.php');
       }else {
