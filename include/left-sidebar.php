@@ -18,7 +18,7 @@
               <span class="badge">5</span>
               <i class="fa fa-graduation-cap" aria-hidden="true"></i> Assessments
             </a>
-            <a href="#" class="list-group-item">
+            <a href="student.php" class="list-group-item">
               <span class="badge">9</span>
               <i class="fa fa-users" aria-hidden="true"></i> Students
             </a>

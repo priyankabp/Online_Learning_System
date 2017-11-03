@@ -7,6 +7,7 @@
    }
  ?>
 <?php require_once('include/config.php'); ?>
+<?php require_once('server.php'); ?>
 <?php include_once('dao/quizDao.php');?>
 <?php
 

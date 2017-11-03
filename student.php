@@ -2,10 +2,10 @@
   if (!isset($_SESSION['username'])) {
       header('Location: login.php');
     }
-  else if (isset($_SESSION['username']) && $_SESSION['role'] =='student'){
-    header('Location: home.php');
-  }
+
+  $session_username = $_SESSION['username'];
  ?>
+<?php require_once('server.php'); ?>
   </head>
   <body>
     <div id="wrapper">
@@ -19,16 +19,15 @@
           </div>
 
           <div class="col-md-9">
-            <h1><i class="fa fa-graduation-cap" aria-hidden="true"></i> Assessments <small>All Quizzes</small></h1><hr>
+            <h1><i class="fa fa-graduation-cap" aria-hidden="true"></i> Welcome <?php echo ucfirst($session_username);?></h1><hr>
             <ol class="breadcrumb">
               <li><a href="home.php"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-              <li class="active"><i class="fa fa-folder-open"></i> Assessments</li>
+              <li class="active"><i class="fa fa-folder-open"></i> Available Quizzes</li>
             </ol>
           </div>
 
           <div class="col-md-9">
-            <a href="allreports.php">All quizzes</a> &nbsp
-	          <a href="add-assessment.php">New assessment</a>
+            <a href="view-quizzes.php" class="btn btn-primary">View Quizzes</a>
           </div>
           
         </div>

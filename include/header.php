@@ -28,7 +28,7 @@
             <li><a href="add-assessment.php"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Add Assesment</a></li>
             <!-- logged in user information -->
             <?php  if (isset($_SESSION['username'])) : ?>
-            <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Welcome <?php echo $_SESSION['username']; ?></a></li>
+            <li><a href="student.php"><i class="fa fa-user" aria-hidden="true"></i> Welcome <?php echo $_SESSION['username']; ?></a></li>
             <li><a href="home.php?logout='1'"><i class="fa fa-power-off" aria-hidden="true"></i> Log Out</a></li>
             <?php endif ?>
           </ul>

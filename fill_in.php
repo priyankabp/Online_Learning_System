@@ -4,6 +4,7 @@
     }
 ?>
 <?php require_once('include/config.php'); ?>
+<?php require_once('server.php'); ?>
 <?php
 
 $asmnt_name = $_GET['assessment_name'];
