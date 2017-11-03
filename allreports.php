@@ -1,4 +1,8 @@
-<?php require_once('include/top.php'); ?>
+<?php require_once('include/top.php'); 
+    if (!isset($_SESSION['username'])) {
+      header('Location: login.php');
+    }
+?>
 <?php require_once('include/config.php');?>
 <?php include_once('dao/quizDao.php');?>
 <?php
