@@ -93,6 +93,8 @@ foreach ($_GET as $name => $value) {
                                             join registration.answers a on r.question_id = a.question_id
                                             where r.question_id = $row[id] and r.submission = '$submission_id'";
 
+                            echo $answer_query . "<br>";
+
 
                     if ($answer_result = $conn->query($answer_query)) {
                         /* fetch associative array */
