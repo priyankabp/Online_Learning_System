@@ -34,7 +34,11 @@ $asmnt_name = $_GET['assessment_name'];
                             <div class="form-group">
                                 <label for="option">Blank Answer(s)</label>
                                 <input type="text" name="option_blank" placeholder="Type answer(s) here" class="form-control">
+                                <label class="control-label col-md-12"></label>
+                                <label for="points">Points:</label>
+                                <input name = "points" type="text" class="form-control">
                             </div>
+                            <label class="control-label col-md-12"></label>
                             <input type="submit" value="Save Question" name="submit_fill_question" class="btn btn-primary">
                             <input type="hidden" name="assessment_name" value= "<?php echo $_GET['assessment_name'] ?>" >
                         </form>

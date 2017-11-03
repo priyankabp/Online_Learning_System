@@ -67,12 +67,13 @@ foreach ($_GET as $name => $value) {
         <div class="col-md-6">
             <?php
             $i=0;
-            $query = "select a.name, q.content, q.type, q.assessment_id, q.id  from registration.questions
+            $query = "select a.name, q.content, q.type, q.assessment_id, q.id, q.points  from registration.questions
                     q join registration.assessments a on a.id = q.assessment_id where a.name ='$asmnt_name'";
             if ($result = $conn->query($query)) {
                 /* fetch associative array */
                 while ($row = $result->fetch_assoc()) {
                     $i++;
+                    $points =$row['points'];
                     ?>
                     <table>
                     <tr>
@@ -117,12 +118,11 @@ foreach ($_GET as $name => $value) {
                             <?php }
                             else if ($row['type'] == "fi"){?>
                                 <p><?= $answer_row['test_results']  ?></p>
-                                <label for="answer">Right Answer(s):</label>
+                                <label for="answer">Right Answer(s) will be graded by the instructor:</label>
                                 <p style="color: #7cfc00"><?=$answer_row['answer']?></p>
                             <?php }
                         }
-
-                        if ($mc_ul_open == TRUE ) { echo "</ul>".($is_correct_answer?"Correct":"Incorrect")."<br>";}
+                        if ($mc_ul_open == TRUE ) { echo "</ul>".($is_correct_answer?"Correct: $points out of $points":"Incorrect: 0 out of $points")."<br>";}
                     }
                     $answer_result->free();?>
                     </td></tr>
@@ -135,29 +135,3 @@ foreach ($_GET as $name => $value) {
         </div>
     </div>
 <?php require_once('include/footer.php'); ?>
-
-        <table>
-            <tr>
-                <td>1. Question content</td>
-            </tr>
-            <tr>
-                <td>
-                       <ul>
-                        <li style="color: red">Coffee</li>
-                        <li>Tea</li>
-                        <li style="color: green">Milk</li>
-                        <li>Water</li>
-                       </ul>
-                </td)
-            </tr>
-            <tr>
-                <td>2. Question content</td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Your Answer</p>
-                    <label for="answer">Right Answer(s):</label>
-                    <p style="color: green">Answer</p>
-                </td)
-            </tr>
-        </table>

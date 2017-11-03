@@ -7,7 +7,11 @@ echo "MODULE NAME GET : '", $_GET['assessment_name'], "'<BR> ";
 echo "MODULE NAME GET : '", $_GET['module'], "'<BR> ";
 $asmnt_name = $_GET['assessment_name'];
 $quizDao = new quizDao($conn);
+$points = $_GET['points'];
+if (empty($points)) {
 
+    $points = 0;
+}
 //$b =   $_GET['module'];
 if ($_GET['page'] == "create_assessment") {
     $quizDao->createAssessment($asmnt_name, $_GET['module'], '1' );
@@ -17,8 +21,8 @@ if ($_GET['page'] == "mc")  {
     if ($_GET['question_content']) {
         //echo $_GET['question_content'];
 
-        $sql = "INSERT INTO registration.questions (content, type, assessment_id)
-    SELECT '${_GET['question_content']}','mc', assmnt.id
+        $sql = "INSERT INTO registration.questions (content, type, assessment_id, points)
+    SELECT '${_GET['question_content']}','mc', assmnt.id, $points
     from registration.assessments assmnt where name= '$asmnt_name'";
         echo $sql;
         echo "<br>";
@@ -77,8 +81,8 @@ else if ($_GET['page'] == "fill")   {
     if ($_GET['question_content']) {
         //echo $_GET['question_content'];
 
-        $sql = "INSERT INTO registration.questions (content, type, assessment_id)
-    SELECT '${_GET['question_content']}','fi', assmnt.id
+        $sql = "INSERT INTO registration.questions (content, type, assessment_id, points)
+    SELECT '${_GET['question_content']}','fi', assmnt.id, $points
     from registration.assessments assmnt where name= '$asmnt_name'";
         //echo $sql;
         if ($conn->query($sql) === TRUE) {
