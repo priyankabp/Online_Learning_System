@@ -1,11 +1,15 @@
-<?php require_once('include/top.php'); ?>
-<?php require_once('include/config.php'); ?>
-<?php require_once('server.php'); ?>
-<?php
-   if (!isset($_SESSION['username'])) {
+<?php require_once('include/top.php'); 
+  if (!isset($_SESSION['username'])) {
     $_SESSION['msg'] = "You must log in first";
     header('location: login.php');
    }
+  else if (isset($_SESSION['username']) && $_SESSION['role'] =='student'){
+    header('Location: home.php');
+  }
+?>
+<?php require_once('include/config.php'); ?>
+<?php require_once('server.php'); ?>
+<?php
 /*echo "MODULE NAME GET : '", $_GET['assessment_name'], "'<BR> ";
 echo "MODULE NAME GET : '", $_GET['role'], "'<BR> ";
 if ($_GET['assessment_name']) {
