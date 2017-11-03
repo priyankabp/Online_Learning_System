@@ -1,10 +1,14 @@
-<?php require_once('include/top.php'); ?>
+<?php require_once('include/top.php');
+  if (!isset($_SESSION['username'])) {
+      header('Location: login.php');
+    }
+ ?>
 <?php require_once('include/config.php'); ?>
 <?php require_once('server.php'); ?>
 
 <?php
-echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";
-if ($_GET['submit_course']) {
+    echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";
+    if ($_GET['submit_course']) {
     $sql = "INSERT INTO registration.courses (course_name) VALUES ('" . $_GET['course_name'] . "')";
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";

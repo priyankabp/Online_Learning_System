@@ -2,6 +2,10 @@
 <?php require_once('include/config.php'); ?>
 <?php require_once('server.php'); ?>
 <?php
+   if (!isset($_SESSION['username'])) {
+    $_SESSION['msg'] = "You must log in first";
+    header('location: login.php');
+   }
 /*echo "MODULE NAME GET : '", $_GET['assessment_name'], "'<BR> ";
 echo "MODULE NAME GET : '", $_GET['role'], "'<BR> ";
 if ($_GET['assessment_name']) {
