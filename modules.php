@@ -5,6 +5,8 @@
   elseif (isset($_SESSION['username']) && $_SESSION['role'] =='student'){
     header('Location: home.php');
    }
+
+   $session_username = $_SESSION['username'];
  ?>
 <?php require_once('include/config.php'); ?>
 <?php require_once('server.php'); ?>
@@ -12,7 +14,7 @@
 <?php
   echo "MODULE NAME GET : '", $_GET['module_name'], "'<BR> ";
   if ($_GET['submit_module']) {
-      $sql = "INSERT INTO registration.modules (module_name, id_user) VALUES ('" . $_GET['module_name'] . "', '1')";
+      $sql = "INSERT INTO registration.modules (course_id,module_name, id_user) VALUES ('" . $_GET['course_name'] . "','" . $_GET['module_name'] . "', '1')";
       if ($db->query($sql) === TRUE) {
           echo "New record created successfully";
       } else {
@@ -53,7 +55,7 @@
             </ol>
 
             <?php
-                $query = "SELECT id,module_name FROM modules";
+                $query = "SELECT id,course_id,module_name FROM modules";
                 $run = mysqli_query($db,$query);
                 if(mysqli_num_rows($run) > 0){
 
@@ -103,22 +105,30 @@
                       <th>Sr #</th>
                       <th>Course</th>
                       <th>Module Name</th>
-                      <th>Edit</th>
+                      <!--th>Edit</th-->
                       <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
+                      $i=1;
                       while ($row = mysqli_fetch_array($run)) {
                         $id = $row['id'];
-                        #$course_name = ucfirst($row['course_id']);
+                        $course_id = $row['course_id'];
+                        $course_name = "SELECT `course_name` FROM courses WHERE `course_id` = $course_id";
+                        $course_name_run = mysqli_query($db,$course_name);
+                        if(mysqli_num_rows($course_name_run)>0){
+                          while ($coures_name_row = mysqli_fetch_array($course_name_run)) {
+                            $coursename = $coures_name_row['course_name'];
+                          }
+                        }
                         $module_name = ucfirst($row['module_name']);
                     ?>
                     <tr>
-                      <td><?php echo $id;?></td>
-                      <td></td>
+                      <td><?=$i++?></td>
+                      <td><?php echo $coursename;?></td>
                       <td><?php echo $module_name;?></td>
-                      <td><a href="add-module.php?edit=<?php echo $id;?>"><i class="fa fa-pencil"></i></a></td>
+                      <!--td><a href="add-module.php?edit=<?php echo $id;?>"><i class="fa fa-pencil"></i></a></td-->
                       <td><a href="modules.php?delete=<?php echo $id;?>"><i class="fa fa-times"></i></a></td>
                     </tr>
                     <?php } ?>
