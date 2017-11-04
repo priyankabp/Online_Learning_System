@@ -105,21 +105,21 @@
                         <div class="col-md-4 icon"></div>
                         <div class="col-md-8">
                           <h3><i class="fa fa-file-text-o" aria-hidden="true"></i> Courses</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
+                          <p>Create acadamic courses with easy user interface.</p>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-4 icon"></div>
                         <div class="col-md-8">
                           <h3><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modules</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
+                          <p>Create modules under each course to simplify students learning.</p>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-4 icon"></div>
                         <div class="col-md-8">
                           <h3><i class="fa fa-graduation-cap" aria-hidden="true"></i> Assessments</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
+                          <p>Create topics under each module to to learning easy and simplified step by step.</p>
                         </div>
                       </div>
                     </div>

@@ -121,12 +121,13 @@
                     <tr>
                       <th>Sr #</th>
                       <th>Topic</th>
-                      <th>Edit</th>
+                      <!--th>Edit</th-->
                       <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
+                      $i =1;
                       while ($row = mysqli_fetch_array($run)) {
                         $id = $row['id'];
                         $course_id = $row['course_id'];
@@ -134,9 +135,9 @@
                         $topic_name = $row['topic_name'];
                     ?>
                     <tr>
-                      <td><?php echo $id;?></td>
+                      <td><?=$i++?></td>
                       <td><a href="view-topic.php?topic_id=<?php echo $id; ?>"><?php echo $topic_name;?></td>
-                      <td><a href="add-module.php?edit=<?php echo $id;?>"><i class="fa fa-pencil"></i></a></td>
+                      <!--td><a href="edit-topic.php?edit=<?php echo $id;?>"><i class="fa fa-pencil"></i></a></td-->
                       <td><a href="topics.php?delete=<?php echo $id;?>"><i class="fa fa-times"></i></a></td>
                     </tr>
                     <?php } ?>
