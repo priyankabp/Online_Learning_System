@@ -125,8 +125,8 @@
                     ?>
                     <tr>
                       <td><?=$i++?></td>
-                      <td><?php echo $coursename;?></td>
-                      <td><?php echo $module_name;?></td>
+                      <td><?php echo ucfirst($coursename);?></td>
+                      <td><?php echo ucfirst($module_name);?></td>
                       <!--td><a href="add-module.php?edit=<?php echo $id;?>"><i class="fa fa-pencil"></i></a></td-->
                       <td><a href="modules.php?delete=<?php echo $id;?>"><i class="fa fa-times"></i></a></td>
                     </tr>

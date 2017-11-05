@@ -160,7 +160,7 @@
                     ?>
                     <tr>
                       <td><?php echo $id;?></td>
-                      <td><?php echo $course_name;?></td>
+                      <td><?php echo ucfirst($course_name);?></td>
                       <td><a href="courses.php?edit=<?php echo $id;?>"><i class="fa fa-pencil"></i></a></td>
                       <td><a href="courses.php?delete=<?php echo $id;?>"><i class="fa fa-times"></i></a></td>
                     </tr>
