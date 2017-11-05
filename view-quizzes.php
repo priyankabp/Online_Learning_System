@@ -28,7 +28,7 @@ $quizDao = new quizDao($db);
               <li><a href="assessments.php"><i class="fa fa-folder-open"></i> Assessments</a></li>
 	      <li class="active"><i class="fa fa-folder-open"></i> All Quizzes</li>
             </ol>
-          </div>
+
             <?php
             if (isset($error)) {
                 echo "<span style='color:red;' class='pull-right'>$error</span>";
@@ -41,7 +41,7 @@ $quizDao = new quizDao($db);
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Num #</th>
+                        <th>Sr.#</th>
                         <th>Module</th>
                         <th>Quiz</th>
                         <th>Run</th>
@@ -74,7 +74,7 @@ $quizDao = new quizDao($db);
 
                 </table>
             </div>
-
+          </div>
         </div>
       </div>
 <?php require_once('include/footer.php'); ?>

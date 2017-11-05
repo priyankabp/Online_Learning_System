@@ -8,6 +8,7 @@
     $_SESSION['msg'] = "You must log in first";
     header('location: login.php');
   }
+  $session_role3 = $_SESSION['role'];
 
   if (isset($_GET['logout'])) {
     session_destroy();
@@ -111,7 +112,17 @@
                       </div>
                     </div>
                   </div>
-                  <a href="allreports.php">
+
+                  <?php
+                    if ($session_role3 == 'instructor') {
+                  ?>
+                      <a href="allreports.php">
+                  <?php 
+                    } 
+                    else if ($session_role3 == 'student'){
+                  ?>
+                      <a href="view-quizzes.php">
+                  <?php } ?>
                     <div class="panel-footer">
                       <span class="pull-left"> View All Assessments</span>
                       <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
