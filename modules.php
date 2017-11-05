@@ -12,7 +12,6 @@
 <?php require_once('server.php'); ?>
 
 <?php
-  echo "MODULE NAME GET : '", $_GET['module_name'], "'<BR> ";
   if ($_GET['submit_module']) {
       $sql = "INSERT INTO registration.modules (course_id,module_name, id_user) VALUES ('" . $_GET['course_name'] . "','" . $_GET['module_name'] . "', '1')";
       if ($db->query($sql) === TRUE) {
@@ -23,7 +22,6 @@
   }
 
   # Delete Module functionality
-  echo "Delete Module : '", $_GET['delete'], "'<BR> ";
   if (isset($_GET['delete'])) {
     # Get the id of the Module to be deleted
     $delete_id = $_GET['delete'];
@@ -54,12 +52,7 @@
               <li class="active"><i class="fa fa-folder-open"></i> Modules</li>
             </ol>
 
-            <?php
-                $query = "SELECT id,course_id,module_name FROM modules";
-                $run = mysqli_query($db,$query);
-                if(mysqli_num_rows($run) > 0){
-
-              ?>
+            
             <div class="row">
               <div class="col-md-6">
                 <form action="">
@@ -99,6 +92,12 @@
                 ?>
               
               <div class="col-md-6">
+                <?php
+                  $query = "SELECT id,course_id,module_name FROM modules";
+                  $run = mysqli_query($db,$query);
+                  if(mysqli_num_rows($run) > 0){
+
+                ?>
                 <table class="table table-hover table-bordered table-striped">
                   <thead>
                     <tr>

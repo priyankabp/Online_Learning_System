@@ -147,15 +147,15 @@
             </div><hr><!-- Items Box Close -->
 
 
-            <div>
+            <div class="row">
                 <div class="col-md-6">
+                    <h3>Courses :</h3>
                     <?php
                       $get_courses_query = "SELECT * FROM courses ORDER BY course_id DESC LIMIT 5";
                       $get_courses_run = mysqli_query($db,$get_courses_query);
                       if (mysqli_num_rows($get_courses_run)>0) {
                         
                     ?>
-                    <h3>Courses</h3>
                     <table class="table table-hover table-stripped">
                       <thead>
                         <tr>
@@ -180,17 +180,20 @@
                     <hr>
                     <?php 
                       } 
+                      else{
+                        echo "<center><h2> No Courses Avaliable </h2></center>";
+                      }
                     ?>
                 </div>
 
                 <div class="col-md-6">
+                    <h3>Modules :</h3>
                     <?php
                       $get_modules_query = "SELECT * FROM modules ORDER BY id DESC LIMIT 5";
                       $get_modules_run = mysqli_query($db,$get_modules_query);
                       if (mysqli_num_rows($get_modules_run)>0) {
                         
                     ?>
-                    <h3>Modules</h3>
                     <table class="table table-hover table-stripped">
                       <thead>
                         <tr>
@@ -208,27 +211,32 @@
                           <td><?php echo $module_id;?></td>
                           <td><?php echo $module_name;?></td>
                         </tr>
-                        <?php } ?>
+                        <?php 
+                          }
+                        ?>
                       </tbody>
                     </table>
                     <a href="modules.php" class="btn btn-primary">View All Modules</a>
                     <hr>
                     <?php 
                       } 
+                      else{
+                        echo "<center><h2> No Modules Avaliable </h2></center>";
+                      } 
                     ?>
                 </div>
-            </div><br>
+            </div><hr>
 
-            <div>
+            <div class="row">
 
                 <div class="col-md-6">
+                    <h3>Assessments :</h3>
                     <?php
                       $get_assessments_query = "SELECT * FROM assessments ORDER BY id DESC LIMIT 5";
                       $get_assessments_run = mysqli_query($db,$get_assessments_query);
                       if (mysqli_num_rows($get_assessments_run)>0) {
                         
                     ?>
-                    <h3>Assessments</h3>
                     <table class="table table-hover table-stripped">
                       <thead>
                         <tr>
@@ -253,17 +261,20 @@
                     <hr>
                     <?php 
                       } 
+                      else{
+                        echo "<center><h2> No Assessments Avaliable </h2></center>";
+                      } 
                     ?>
                 </div>
 
                 <div class="col-md-6">
+                    <h3>Topics :</h3>
                     <?php
                       $get_topics_query = "SELECT * FROM topics ORDER BY id DESC LIMIT 5";
                       $get_topics_run = mysqli_query($db,$get_topics_query);
                       if (mysqli_num_rows($get_topics_run)>0) {
                         
                     ?>
-                    <h3>Topics</h3>
                     <table class="table table-hover table-stripped">
                       <thead>
                         <tr>
@@ -288,10 +299,13 @@
                     <hr>
                     <?php 
                       } 
+                      else{
+                        echo "<center><h2> No Topics Avaliable </h2></center>";
+                      } 
                     ?>
                 </div>
-            </div><br>
+            </div><hr>
         </div>
-      </div><hr>
+      </div>
     </div>
 <?php require_once('include/footer.php'); ?>

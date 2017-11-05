@@ -16,11 +16,9 @@
      $edit_id = $_GET['edit'];
    }
 
-    echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";
     if ($_GET['submit_course']) {
       $sql = "INSERT INTO registration.courses (course_name) VALUES ('" . $_GET['course_name'] . "')";
       if ($conn->query($sql) === TRUE) {
-          echo "New record created successfully";
       } 
       else{
           echo "Error: " . $sql . "<br>" . $conn->error;
@@ -28,7 +26,6 @@
     }
 
   # Delete Course functionality
-  echo "Delet Course : '", $_GET['delete'], "'<BR> ";
   if (isset($_GET['delete'])) {
     # Get the id of the course to be deleted
     $delete_id = $_GET['delete'];
@@ -82,12 +79,7 @@
               <li class="active"><i class="fa fa-folder-open"></i> Courses</li>
             </ol>
 
-            <?php
-              $query = "SELECT * FROM courses";
-              $run = mysqli_query($db,$query);
-              if (mysqli_num_rows($run) > 0) {
-              
-            ?>
+            
             <div class="row">
               <div class="col-md-6">
                 <form action="">
@@ -144,6 +136,12 @@
                 ?>
 
               <div class="col-md-6">
+                <?php
+                  $query = "SELECT * FROM courses";
+                  $run = mysqli_query($db,$query);
+                  if (mysqli_num_rows($run) > 0) {
+                  
+                ?>
                 <table class="table table-hover table-bordered table-striped">
                   <thead>
                     <tr>

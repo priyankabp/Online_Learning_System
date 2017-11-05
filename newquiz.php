@@ -10,9 +10,6 @@
 <?php require_once('server.php'); ?>
 <?php include_once('dao/quizDao.php');?>
 <?php
-
-echo "MODULE NAME GET : '", $_GET['assessment_name'], "'<BR> ";
-echo "MODULE NAME GET : '", $_GET['module'], "'<BR> ";
 $asmnt_name = $_GET['assessment_name'];
 $quizDao = new quizDao($conn);
 $points = $_GET['points'];

@@ -9,7 +9,6 @@
 <?php require_once('server.php'); ?>
 
 <?php
-echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";echo "MODULE NAME GET : '", $_GET['module_name'], "'<BR> ";
 if ($_GET['submit_module']) {
     $sql = "INSERT INTO registration.modules (module_name, id_user) VALUES ('" . $_GET['module_name'] . "', '1')";
     if ($db->query($sql) === TRUE) {

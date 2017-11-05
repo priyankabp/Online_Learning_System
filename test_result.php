@@ -7,9 +7,6 @@
 <?php require_once('server.php'); ?>
 <?php include_once('dao/quizDao.php');?>
 <?php
-
-echo "MODULE NAME GET : '", $_GET['assessment_name'], "'<BR> ";
-echo "MODULE NAME GET : '", $_GET['module'], "'<BR> ";
 $asmnt_name = $_GET['assessment_name'];
 $quizDao = new quizDao($conn);
 $assessment_id = $_GET['assessment_id'];
@@ -21,7 +18,6 @@ if ($_GET['page'] == "create_assessment") {
 }
 
 foreach ($_GET as $name => $value) {
-    echo $name . ' : ' . $value . '<br />';
     $question_id = explode("question_", $name);
     //it is a check to see that request parameter starts with "question_" and has a numeric id after it
     if ($question_id[0] == '' && $question_id[1] > 0) {

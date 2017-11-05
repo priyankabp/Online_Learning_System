@@ -9,20 +9,6 @@
 ?>
 <?php require_once('include/config.php'); ?>
 <?php require_once('server.php'); ?>
-<?php
-/*echo "MODULE NAME GET : '", $_GET['assessment_name'], "'<BR> ";
-echo "MODULE NAME GET : '", $_GET['role'], "'<BR> ";
-if ($_GET['assessment_name']) {
-    $sql = "INSERT INTO registration.assessments (name, id_module, id_user)
-    VALUES ('" . $_GET['assessment_name'] ."','". $_GET['role'] ."', '1')";
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-    //$conn->close();
-}
-*/?>
   </head>
   <body>
     <div id="wrapper">

@@ -51,13 +51,6 @@
               <li class="active"><i class="fa fa-folder-open"></i> Topics</li>
             </ol>
 
-            <?php
-              $query = "SELECT id,course_id, module_id, topic_name FROM topics";
-              $run = mysqli_query($db,$query);
-              if (mysqli_num_rows($run) > 0) {
-              
-            ?>
-
             <div class="row">
               <div class="col-md-7">
                 <form action="">
@@ -116,6 +109,12 @@
                 ?>
 
               <div class="col-md-5">
+                <?php
+                  $query = "SELECT id,topic_name FROM topics";
+                  $run = mysqli_query($db,$query);
+                  if (mysqli_num_rows($run) > 0) {
+                  
+                ?>
                 <table class="table table-hover table-bordered table-striped">
                   <thead>
                     <tr>
@@ -146,7 +145,7 @@
                  <?php
                   }
                   else{
-                    echo "<center><h2> No Courses Avaliable </h2></center>";
+                    echo "<center><h2> No Topics Avaliable </h2></center>";
                   }
                  ?>
               </div>

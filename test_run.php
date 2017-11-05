@@ -7,9 +7,6 @@
 <?php require_once('server.php'); ?>
 <?php include_once('dao/quizDao.php');?>
 <?php
-
-echo "MODULE NAME GET : '", $_GET['assessment_name'], "'<BR> ";
-echo "MODULE NAME GET : '", $_GET['module'], "'<BR> ";
 $asmnt_name = $_GET['assessment_name'];
 $quizDao = new quizDao($conn);
 
@@ -25,8 +22,6 @@ if ($_GET['page'] == "mc")  {
         $sql = "INSERT INTO registration.questions (content, type, assessment_id)
     SELECT '${_GET['question_content']}','mc', assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
-        echo $sql;
-        echo "<br>";
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully<br>";
         } else {
