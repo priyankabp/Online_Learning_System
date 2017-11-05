@@ -29,8 +29,6 @@ if ($_GET['page'] == "mc")  {
         $sql = "INSERT INTO registration.questions (content, type, assessment_id, points)
     SELECT '${_GET['question_content']}','mc', assmnt.id, $points
     from registration.assessments assmnt where name= '$asmnt_name'";
-        echo $sql;
-        echo "<br>";
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully<br>";
         } else {
@@ -38,14 +36,13 @@ if ($_GET['page'] == "mc")  {
         }
         //$conn->close();
         $question_id= $conn->insert_id;
-        echo "question id: ", $question_id, "<br>";
 
         $correct_answer = $_GET['correct_input'] == 'r1' ? "y" : "n";
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
     SELECT '${_GET['mc_1']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
         if ($conn->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
+            #echo "New record created successfully";
         } else {
             echo "Error: " . $sql_answer . "<br>" . $conn->error;
         }
@@ -55,7 +52,7 @@ if ($_GET['page'] == "mc")  {
     SELECT '${_GET['mc_2']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
         if ($conn->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
+            #echo "New record created successfully";
         } else {
             echo "Error: " . $sql_answer . "<br>" . $conn->error;
         }
@@ -66,7 +63,7 @@ if ($_GET['page'] == "mc")  {
     SELECT '${_GET['mc_3']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
         if ($conn->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
+            #echo "New record created successfully";
         } else {
             echo "Error: " . $sql_answer . "<br>" . $conn->error;
         }
@@ -76,7 +73,7 @@ if ($_GET['page'] == "mc")  {
     SELECT '${_GET['mc_4']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
         if ($conn->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
+            #echo "New record created successfully";
         } else {
             echo "Error: " . $sql_answer . "<br>" . $conn->error;
         }
@@ -91,13 +88,13 @@ else if ($_GET['page'] == "fill")   {
     from registration.assessments assmnt where name= '$asmnt_name'";
         //echo $sql;
         if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully<br>";
+            #echo "New record created successfully<br>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
         //$conn->close();
         $question_id= $conn->insert_id;
-        echo "question id: ", $question_id, "<br>";
+        #echo "question id: ", $question_id, "<br>";
 
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
     SELECT '${_GET['option_blank']}','y', $question_id, assmnt.id
