@@ -8,7 +8,7 @@
 <?php include_once('dao/quizDao.php');?>
 <?php
 $asmnt_name = $_GET['assessment_name'];
-$quizDao = new quizDao($conn);
+$quizDao = new quizDao($db);
 
 //$b =   $_GET['module'];
 if ($_GET['page'] == "create_assessment") {
@@ -22,33 +22,33 @@ if ($_GET['page'] == "mc")  {
         $sql = "INSERT INTO registration.questions (content, type, assessment_id)
     SELECT '${_GET['question_content']}','mc', assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($conn->query($sql) === TRUE) {
+        if ($db->query($sql) === TRUE) {
             echo "New record created successfully<br>";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $sql . "<br>" . $db->error;
         }
         //$conn->close();
-        $question_id= $conn->insert_id;
+        $question_id= $db->insert_id;
         echo "question id: ", $question_id, "<br>";
 
         $correct_answer = $_GET['correct_input'] == 'r1' ? "y" : "n";
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
     SELECT '${_GET['mc_1']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($conn->query($sql_answer) === TRUE) {
+        if ($db->query($sql_answer) === TRUE) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql_answer . "<br>" . $conn->error;
+            echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
 
         $correct_answer = $_GET['correct_input'] == 'r2' ? "y" : "n";
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
     SELECT '${_GET['mc_2']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($conn->query($sql_answer) === TRUE) {
+        if ($db->query($sql_answer) === TRUE) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql_answer . "<br>" . $conn->error;
+            echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
 
 
@@ -56,20 +56,20 @@ if ($_GET['page'] == "mc")  {
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
     SELECT '${_GET['mc_3']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($conn->query($sql_answer) === TRUE) {
+        if ($db->query($sql_answer) === TRUE) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql_answer . "<br>" . $conn->error;
+            echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
 
         $correct_answer = $_GET['correct_input'] == 'r4' ? "y" : "n";
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
     SELECT '${_GET['mc_4']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($conn->query($sql_answer) === TRUE) {
+        if ($db->query($sql_answer) === TRUE) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql_answer . "<br>" . $conn->error;
+            echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
     }
 }
@@ -81,13 +81,13 @@ else if ($_GET['page'] == "fill")   {
     SELECT '${_GET['question_content']}','fi', assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
         //echo $sql;
-        if ($conn->query($sql) === TRUE) {
+        if ($db->query($sql) === TRUE) {
             echo "New record created successfully<br>";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $sql . "<br>" . $db->error;
         }
         //$conn->close();
-        $question_id= $conn->insert_id;
+        $question_id= $db->insert_id;
         echo "question id: ", $question_id, "<br>";
 
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
@@ -95,10 +95,10 @@ else if ($_GET['page'] == "fill")   {
     from registration.assessments assmnt where name= '$asmnt_name'";
         //echo $sql_answer;
         //echo $sql;
-        if ($conn->query($sql_answer) === TRUE) {
+        if ($db->query($sql_answer) === TRUE) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql_answer . "<br>" . $conn->error;
+            echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
     }
 }
@@ -145,7 +145,7 @@ else if ($_GET['page'] == "fill")   {
         <div class="col-md-9">
             <?php
             $query = "select module_name from registration.modules where id = ".$_GET['module'].";";
-            if ($result = $conn->query($query)) {
+            if ($result = $db->query($query)) {
                 /* fetch associative array */
                 while ($row = $result->fetch_assoc()) {
                     $b = $row['module_name'];
@@ -170,7 +170,7 @@ else if ($_GET['page'] == "fill")   {
             $i=0;
             $query = "select a.name, q.content, q.type, q.assessment_id, q.id  from registration.questions
                     q join registration.assessments a on a.id = q.assessment_id where a.name ='$asmnt_name'";
-            if ($result = $conn->query($query)) {
+            if ($result = $db->query($query)) {
                 /* fetch associative array */
                 while ($row = $result->fetch_assoc()) {
                     $i++;
@@ -181,7 +181,7 @@ else if ($_GET['page'] == "fill")   {
                     <?php
                     // checking what type of questions mc or fill_in
                     $answer_query = "select id, answer, correct from registration.answers where question_id=$row[id]";
-                    if ($answer_result = $conn->query($answer_query)) {
+                    if ($answer_result = $db->query($answer_query)) {
                         /* fetch associative array */
                         while ($answer_row = $answer_result->fetch_assoc()) {
                             if ($row['type'] == "mc") {?>

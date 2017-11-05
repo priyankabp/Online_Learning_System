@@ -6,7 +6,7 @@
 <?php require_once('include/config.php');?>
 <?php include_once('dao/quizDao.php');?>
 <?php
-$quizDao = new quizDao($conn);
+$quizDao = new quizDao($db);
 ?>
 
   </head>
@@ -52,7 +52,7 @@ $quizDao = new quizDao($conn);
                     <?php
                     $query = "select  m.module_name, a.name, a.id_module, a.id  from registration.modules m
                               join registration.assessments a on m.id = a.id_module;";
-                    if ($result = $conn->query($query)) {
+                    if ($result = $db->query($query)) {
                         /* fetch associative array */
                         $i=1;
                         while ($row = $result->fetch_assoc()) {

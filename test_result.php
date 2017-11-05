@@ -8,7 +8,7 @@
 <?php include_once('dao/quizDao.php');?>
 <?php
 $asmnt_name = $_GET['assessment_name'];
-$quizDao = new quizDao($conn);
+$quizDao = new quizDao($db);
 $assessment_id = $_GET['assessment_id'];
 $submission_id = uniqid();
 
@@ -23,10 +23,10 @@ foreach ($_GET as $name => $value) {
     if ($question_id[0] == '' && $question_id[1] > 0) {
         $sql = "INSERT INTO registration.test_results (assessment_id, user_id, question_id, answer,submission)
           VALUES ($assessment_id, 1, $question_id[1],'$value','$submission_id')";
-        if ($conn->query($sql) === TRUE) {
+        if ($db->query($sql) === TRUE) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $sql . "<br>" . $db->error;
         }
     }
 }
@@ -47,7 +47,7 @@ foreach ($_GET as $name => $value) {
         <div class="col-md-9">
             <?php
             $query = "select module_name from registration.modules where id = ".$_GET['module'].";";
-            if ($result = $conn->query($query)) {
+            if ($result = $db->query($query)) {
                 /* fetch associative array */
                 while ($row = $result->fetch_assoc()) {
                     $b = $row['module_name'];
@@ -70,7 +70,7 @@ foreach ($_GET as $name => $value) {
             $i=0;
             $query = "select a.name, q.content, q.type, q.assessment_id, q.id, q.points  from registration.questions
                     q join registration.assessments a on a.id = q.assessment_id where a.name ='$asmnt_name'";
-            if ($result = $conn->query($query)) {
+            if ($result = $db->query($query)) {
                 /* fetch associative array */
                 while ($row = $result->fetch_assoc()) {
                     $i++;
@@ -93,7 +93,7 @@ foreach ($_GET as $name => $value) {
                             echo $answer_query . "<br>";
 
 
-                    if ($answer_result = $conn->query($answer_query)) {
+                    if ($answer_result = $db->query($answer_query)) {
                         /* fetch associative array */
                         $mc_ul_open = FALSE;
                         $is_correct_answer = FALSE;

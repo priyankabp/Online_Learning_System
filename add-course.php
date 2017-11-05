@@ -12,10 +12,10 @@
 <?php
     if ($_GET['submit_course']) {
     $sql = "INSERT INTO registration.courses (course_name) VALUES ('" . $_GET['course_name'] . "')";
-    if ($conn->query($sql) === TRUE) {
+    if ($db->query($sql) === TRUE) {
         echo "New record created successfully";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $sql . "<br>" . $db->error;
     }
 }
 ?>

@@ -11,10 +11,9 @@
 <?php include_once('dao/quizDao.php');?>
 <?php
 $asmnt_name = $_GET['assessment_name'];
-$quizDao = new quizDao($conn);
+$quizDao = new quizDao($db);
 $points = $_GET['points'];
 if (empty($points)) {
-
     $points = 0;
 }
 //$b =   $_GET['module'];
@@ -31,33 +30,33 @@ if ($_GET['page'] == "mc")  {
     from registration.assessments assmnt where name= '$asmnt_name'";
         echo $sql;
         echo "<br>";
-        if ($conn->query($sql) === TRUE) {
+        if ($db->query($sql) === TRUE) {
             echo "New record created successfully<br>";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $sql . "<br>" . $db->error;
         }
         //$conn->close();
-        $question_id= $conn->insert_id;
+        $question_id= $db->insert_id;
         echo "question id: ", $question_id, "<br>";
 
         $correct_answer = $_GET['correct_input'] == 'r1' ? "y" : "n";
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
     SELECT '${_GET['mc_1']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($conn->query($sql_answer) === TRUE) {
+        if ($db->query($sql_answer) === TRUE) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql_answer . "<br>" . $conn->error;
+            echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
 
         $correct_answer = $_GET['correct_input'] == 'r2' ? "y" : "n";
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
     SELECT '${_GET['mc_2']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($conn->query($sql_answer) === TRUE) {
+        if ($db->query($sql_answer) === TRUE) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql_answer . "<br>" . $conn->error;
+            echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
 
 
@@ -65,20 +64,20 @@ if ($_GET['page'] == "mc")  {
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
     SELECT '${_GET['mc_3']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($conn->query($sql_answer) === TRUE) {
+        if ($db->query($sql_answer) === TRUE) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql_answer . "<br>" . $conn->error;
+            echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
 
         $correct_answer = $_GET['correct_input'] == 'r4' ? "y" : "n";
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
     SELECT '${_GET['mc_4']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($conn->query($sql_answer) === TRUE) {
+        if ($db->query($sql_answer) === TRUE) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql_answer . "<br>" . $conn->error;
+            echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
     }
 }
@@ -90,13 +89,13 @@ else if ($_GET['page'] == "fill")   {
     SELECT '${_GET['question_content']}','fi', assmnt.id, $points
     from registration.assessments assmnt where name= '$asmnt_name'";
         //echo $sql;
-        if ($conn->query($sql) === TRUE) {
+        if ($db->query($sql) === TRUE) {
             echo "New record created successfully<br>";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $sql . "<br>" . $db->error;
         }
         //$conn->close();
-        $question_id= $conn->insert_id;
+        $question_id= $db->insert_id;
         echo "question id: ", $question_id, "<br>";
 
         $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
@@ -104,15 +103,48 @@ else if ($_GET['page'] == "fill")   {
     from registration.assessments assmnt where name= '$asmnt_name'";
         //echo $sql_answer;
         //echo $sql;
-        if ($conn->query($sql_answer) === TRUE) {
+        if ($db->query($sql_answer) === TRUE) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql_answer . "<br>" . $conn->error;
+            echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
     }
 }
 
 ?>
+    <script lang="javascript">
+        function bs_input_file() {
+            $(".input-file").before(
+                function () {
+                    if (!$(this).prev().hasClass('input-ghost')) {
+                        var element = $("<input type='file' accept='.csv' class='input-ghost' style='visibility:hidden; height:0'>");
+                        element.attr("name", $(this).attr("name"));
+                        element.change(function () {
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                            $("#submit_file").removeAttr("disabled");
+                        });
+                        $(this).find("button.btn-choose").click(function () {
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function () {
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                            $("#submit_file").attr("disabled", "disabled");
+                        });
+                        $(this).find('input').css("cursor", "pointer");
+                        $(this).find('input').mousedown(function () {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+        $(function () {
+            bs_input_file();
+        });
+    </script>
   </head>
   <body>
     <div id="wrapper">
@@ -142,10 +174,32 @@ else if ($_GET['page'] == "fill")   {
                   <tr>
                       <td colspan=2 align="center">
                           <form action="allreports.php">
-                              <input type="submit" value="Done" name="submit_done" class="btn btn-primary">
+                              <input type="submit" value="Go to all reports" name="submit_done" class="btn btn-primary">
                           </form>
                       </td>
-
+                  </tr>
+                  <tr>
+                      <td colspan=2 align="center">
+                          <form method="POST" action="dump.php" enctype="multipart/form-data">
+                              <div class="form-group">
+                                  <div class="input-group input-file" name="fileToUpload">
+                                    <span class="input-group-btn">
+                                       <button class="btn btn-default btn-choose" type="button">Choose</button>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder='Choose a file...'/>
+                                      <span class="input-group-btn">
+                                           <button class="btn btn-reset" type="button">Reset</button>
+                                      </span>
+                                  </div>
+                              </div>
+                              <!-- COMPONENT END -->
+                              <div class="form-group">
+                                  <button type="submit" id="submit_file" class="btn btn-primary" disabled>
+                                      Submit
+                                  </button>
+                              </div>
+                          </form>
+                      </td>
                   </tr>
                   </tbody>
               </table>
@@ -154,7 +208,7 @@ else if ($_GET['page'] == "fill")   {
           <div class="col-md-9">
               <?php
               $query = "select module_name from registration.modules where id = ".$_GET['module'].";";
-              if ($result = $conn->query($query)) {
+              if ($result = $db->query($query)) {
                   /* fetch associative array */
                   while ($row = $result->fetch_assoc()) {
                       $b = $row['module_name'];
@@ -177,7 +231,7 @@ else if ($_GET['page'] == "fill")   {
                     $i=0;
                     $query = "select a.name, q.content, q.type, q.assessment_id, q.id  from registration.questions
                     q join registration.assessments a on a.id = q.assessment_id where a.name ='$asmnt_name'";
-                    if ($result = $conn->query($query)) {
+                    if ($result = $db->query($query)) {
                         /* fetch associative array */
                         while ($row = $result->fetch_assoc()) {
                             $i++;
@@ -188,7 +242,7 @@ else if ($_GET['page'] == "fill")   {
                     <?php
                         // checking what type of questions mc or fill_in
                         $answer_query = "select answer, correct from registration.answers where question_id=$row[id]";
-                            if ($answer_result = $conn->query($answer_query)) {
+                            if ($answer_result = $db->query($answer_query)) {
                                 /* fetch associative array */
 
                                 while ($answer_row = $answer_result->fetch_assoc()) {

@@ -1,4 +1,5 @@
 <?php require_once('server.php'); ?>
+<?php require_once('include/config.php'); ?>
 <?php
 // LOGIN USER
   if (isset($_POST['login_user'])) {

@@ -6,7 +6,7 @@
 <?php require_once('include/config.php');?>
 <?php include_once('dao/quizDao.php');?>
 <?php
-$quizDao = new quizDao($conn);
+$quizDao = new quizDao($db);
 
 if (isset($_GET['delete'])) {
     $delete_id =  $_GET['delete'];
@@ -14,7 +14,7 @@ if (isset($_GET['delete'])) {
     $delete_answers= "delete from registration.answers where assessment_id=$delete_id;";;
 
 
-    if (mysqli_query($conn,$delete_answers)) {
+    if (mysqli_query($db,$delete_answers)) {
         $msg = "Answers has been deleted";
     }
     else{
@@ -23,7 +23,7 @@ if (isset($_GET['delete'])) {
 
     $delete_questions = "delete from registration.questions where assessment_id=$delete_id;";
 
-    if (mysqli_query($conn,$delete_questions)) {
+    if (mysqli_query($db,$delete_questions)) {
         $msg = "Questions has been deleted";
     }
     else{
@@ -31,7 +31,7 @@ if (isset($_GET['delete'])) {
     }
     $delete_assessments = "delete from registration.assessments where id=$delete_id;";
 
-    if (mysqli_query($conn,$delete_assessments)) {
+    if (mysqli_query($db,$delete_assessments)) {
         $msg = "Assessments has been deleted";
     }
     else{
@@ -85,7 +85,7 @@ if (isset($_GET['delete'])) {
                     <?php
                     $query = "select  m.module_name, a.name, a.id_module, a.id  from registration.modules m
                               join registration.assessments a on m.id = a.id_module;";
-                    if ($result = $conn->query($query)) {
+                    if ($result = $db->query($query)) {
                         /* fetch associative array */
                         $i=1;
                         while ($row = $result->fetch_assoc()) {

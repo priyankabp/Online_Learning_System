@@ -35,7 +35,7 @@
                         <select name="module" id="module" class="form-control">
                         <?php
                         $query = "SELECT id, module_name from registration.modules";
-                        if ($result = $conn->query($query)) {
+                        if ($result = $db->query($query)) {
                         /* fetch associative array */
                         while ($row = $result->fetch_assoc()) {
                             print "<option value=\"$row[id]\">${row[module_name]}</option>";
@@ -51,7 +51,8 @@
                         <input type="text" name="assessment_name" placeholder="Assessment Name" class="form-control">
                     </div>
                     <input type="submit" value="Add Assessment" name="submit_assessment" class="btn btn-primary">
-                    <input type="file" name="fileToUpload" id="fileToUpload">
+                    <input type="file" name="fileToUpload" id="fileToUpload" class="file">
+
                 </form>
             </div>
         </div>
