@@ -1,4 +1,7 @@
 <?php 
+  require_once('include/top.php');  
+  require_once('include/config.php');
+  require_once('server.php'); 
   session_start(); 
 
   if (!isset($_SESSION['username'])) {
@@ -12,8 +15,22 @@
     header("location: login.php");
   }
 
+  $course_tag_query = "SELECT * FROM `courses`";
+  $module_tag_query = "SELECT * FROM `modules`";
+  $assessment_tag_query = "SELECT * FROM `assessments`";
+  $user_tag_query = "SELECT * FROM `users` WHERE role = 'student'";
+
+  $course_tag_run = mysqli_query($db,$course_tag_query);
+  $module_tag_run = mysqli_query($db,$module_tag_query);
+  $assessment_tag_run = mysqli_query($db,$assessment_tag_query);
+  $user_tag_run = mysqli_query($db,$user_tag_query);
+
+  $course_rows = mysqli_num_rows($course_tag_run);
+  $module_rows = mysqli_num_rows($module_tag_run);
+  $assessment_rows = mysqli_num_rows($assessment_tag_run);
+  $user_rows = mysqli_num_rows($user_tag_run);
+
 ?>
-<?php require_once('include/top.php');  ?>
   </head>
   <body>
     <?php require_once('include/header.php');  ?>
@@ -40,12 +57,12 @@
                         <i class="fa fa-book fa-5x"></i>
                       </div>
                       <div class="col-xs-9">
-                        <div class="text-right huge">11</div>
+                        <div class="text-right huge"><?php echo $course_rows;?></div>
                         <div class="text-right">Courses</div>
                       </div>
                     </div>
                   </div>
-                  <a href="#">
+                  <a href="courses.php">
                     <div class="panel-footer">
                       <span class="pull-left"> View All Courses</span>
                       <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -64,12 +81,12 @@
                         <i class="fa fa-pencil-square-o fa-5x"></i>
                       </div>
                       <div class="col-xs-9">
-                        <div class="text-right huge">18</div>
+                        <div class="text-right huge"><?php echo $module_rows;?></div>
                         <div class="text-right">All Modules</div>
                       </div>
                     </div>
                   </div>
-                  <a href="#">
+                  <a href="modules.php">
                     <div class="panel-footer">
                       <span class="pull-left"> View All Modules</span>
                       <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -88,12 +105,12 @@
                         <i class="fa fa-graduation-cap fa-5x"></i>
                       </div>
                       <div class="col-xs-9">
-                        <div class="text-right huge">30</div>
+                        <div class="text-right huge"><?php echo $assessment_rows;?></div>
                         <div class="text-right">All Assessments</div>
                       </div>
                     </div>
                   </div>
-                  <a href="#">
+                  <a href="allreports.php">
                     <div class="panel-footer">
                       <span class="pull-left"> View All Assessments</span>
                       <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -112,12 +129,12 @@
                         <i class="fa fa-users fa-5x"></i>
                       </div>
                       <div class="col-xs-9">
-                        <div class="text-right huge">9</div>
+                        <div class="text-right huge"><?php echo $user_rows;?></div>
                         <div class="text-right">All Students</div>
                       </div>
                     </div>
                   </div>
-                  <a href="#">
+                  <a href="student.php">
                     <div class="panel-footer">
                       <span class="pull-left"> View All Students</span>
                       <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
