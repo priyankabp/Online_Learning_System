@@ -33,6 +33,7 @@
 ?>
   </head>
   <body>
+    <div id="wrapper">
     <?php require_once('include/header.php');  ?>
     <div class="container-fluid">
       <div class="row">
@@ -145,10 +146,152 @@
               </div><!--Students Box Close-->
             </div><hr><!-- Items Box Close -->
 
-          </div>
+
+            <div>
+                <div class="col-md-6">
+                    <?php
+                      $get_courses_query = "SELECT * FROM courses ORDER BY course_id DESC LIMIT 5";
+                      $get_courses_run = mysqli_query($db,$get_courses_query);
+                      if (mysqli_num_rows($get_courses_run)>0) {
+                        
+                    ?>
+                    <h3>Courses</h3>
+                    <table class="table table-hover table-stripped">
+                      <thead>
+                        <tr>
+                          <th>Sr #</th>
+                          <th>Course Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                          while ($get_courses_row = mysqli_fetch_array($get_courses_run)) {
+                            $course_id = $get_courses_row['course_id'];
+                            $course_name = $get_courses_row['course_name'];
+                        ?>
+                        <tr>
+                          <td><?php echo $course_id;?></td>
+                          <td><?php echo $course_name;?></td>
+                        </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+                    <a href="courses.php" class="btn btn-primary">View All Courses</a>
+                    <hr>
+                    <?php 
+                      } 
+                    ?>
+                </div>
+
+                <div class="col-md-6">
+                    <?php
+                      $get_modules_query = "SELECT * FROM modules ORDER BY id DESC LIMIT 5";
+                      $get_modules_run = mysqli_query($db,$get_modules_query);
+                      if (mysqli_num_rows($get_modules_run)>0) {
+                        
+                    ?>
+                    <h3>Modules</h3>
+                    <table class="table table-hover table-stripped">
+                      <thead>
+                        <tr>
+                          <th>Sr #</th>
+                          <th>Module Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                          while ($get_modules_row = mysqli_fetch_array($get_modules_run)) {
+                            $module_id = $get_modules_row['id'];
+                            $module_name = $get_modules_row['module_name'];
+                        ?>
+                        <tr>
+                          <td><?php echo $module_id;?></td>
+                          <td><?php echo $module_name;?></td>
+                        </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+                    <a href="modules.php" class="btn btn-primary">View All Modules</a>
+                    <hr>
+                    <?php 
+                      } 
+                    ?>
+                </div>
+            </div><br>
+
+            <div>
+
+                <div class="col-md-6">
+                    <?php
+                      $get_assessments_query = "SELECT * FROM assessments ORDER BY id DESC LIMIT 5";
+                      $get_assessments_run = mysqli_query($db,$get_assessments_query);
+                      if (mysqli_num_rows($get_assessments_run)>0) {
+                        
+                    ?>
+                    <h3>Assessments</h3>
+                    <table class="table table-hover table-stripped">
+                      <thead>
+                        <tr>
+                          <th>Sr #</th>
+                          <th>Assessment Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                          while ($get_assessments_row = mysqli_fetch_array($get_assessments_run)) {
+                            $assessment_id = $get_assessments_row['id'];
+                            $assessment_name = $get_assessments_row['name'];
+                        ?>
+                        <tr>
+                          <td><?php echo $assessment_id;?></td>
+                          <td><?php echo $assessment_name;?></td>
+                        </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+                    <a href="allreports.php" class="btn btn-primary">View All Assessments</a>
+                    <hr>
+                    <?php 
+                      } 
+                    ?>
+                </div>
+
+                <div class="col-md-6">
+                    <?php
+                      $get_topics_query = "SELECT * FROM topics ORDER BY id DESC LIMIT 5";
+                      $get_topics_run = mysqli_query($db,$get_topics_query);
+                      if (mysqli_num_rows($get_topics_run)>0) {
+                        
+                    ?>
+                    <h3>Topics</h3>
+                    <table class="table table-hover table-stripped">
+                      <thead>
+                        <tr>
+                          <th>Sr #</th>
+                          <th>Course Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                          while ($get_topics_row = mysqli_fetch_array($get_topics_run)) {
+                            $topic_id = $get_topics_row['id'];
+                            $topic_name = $get_topics_row['topic_name'];
+                        ?>
+                        <tr>
+                          <td><?php echo $topic_id;?></td>
+                          <td><?php echo $topic_name;?></td>
+                        </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+                    <a href="topics.php" class="btn btn-primary">View All Topics</a>
+                    <hr>
+                    <?php 
+                      } 
+                    ?>
+                </div>
+            </div><br>
         </div>
-      </div>
-        </div>
-      </div>
+      </div><hr>
     </div>
 <?php require_once('include/footer.php'); ?>

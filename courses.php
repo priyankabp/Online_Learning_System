@@ -1,7 +1,5 @@
 <?php 
   require_once('include/top.php');
-  require_once('include/config.php');
-  require_once('server.php');
 
   if (!isset($_SESSION['username'])) {
       header('Location: login.php');
@@ -9,10 +7,26 @@
   elseif (isset($_SESSION['username']) && $_SESSION['role'] =='student'){
     header('Location: home.php');
    }
+?>
+<?php require_once('include/config.php'); ?>
+<?php require_once('server.php'); ?>
+<?php
 
    if (isset($_GET['edit'])) {
      $edit_id = $_GET['edit'];
    }
+
+    echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";
+    if ($_GET['submit_course']) {
+      $sql = "INSERT INTO registration.courses (course_name) VALUES ('" . $_GET['course_name'] . "')";
+      if ($conn->query($sql) === TRUE) {
+          echo "New record created successfully";
+      } 
+      else{
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+    }
+
   # Delete Course functionality
   echo "Delet Course : '", $_GET['delete'], "'<BR> ";
   if (isset($_GET['delete'])) {
@@ -26,16 +40,6 @@
     else{
       $error = "Course has not been deleted";
     }
-  }
-
-  echo "COURSE NAME GET : '", $_GET['course_name'], "'<BR> ";
-  if ($_GET['submit_course']) {
-      $sql = "INSERT INTO registration.courses (course_name) VALUES ('" . $_GET['course_name'] . "')";
-      if ($conn->query($sql) === TRUE) {
-          echo "New record created successfully";
-      } else {
-          echo "Error: " . $sql . "<br>" . $conn->error;
-      }
   }
 
   if (isset($_POST['update'])) {
@@ -86,12 +90,12 @@
             ?>
             <div class="row">
               <div class="col-md-6">
-                <form action="" method="post">
+                <form action="">
                   <div class="form-group">
                     <label for="course">Course Name:</label>
                     <input type="text" name="course_name" placeholder="Course Name" class="form-control">
                   </div>
-                  <input type="submit" value="Add Course" name="submit_course" class="btn btn-primary">
+                  <input type="submit" value="Add New Course" name="submit_course" class="btn btn-primary">
                 </form>
 
                 <?php 

@@ -67,6 +67,7 @@
   </head>
   <body>
 
+    <div id="wrapper">
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -167,4 +168,5 @@
                     </div>
                 </div>
         </div>
+      </div>
 <?php require_once('include/footer.php'); ?>
