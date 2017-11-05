@@ -1,5 +1,5 @@
 <?php
-
+  $session_role1 = $_SESSION['role'];
   $course_tag_query = "SELECT * FROM `courses`";
   $module_tag_query = "SELECT * FROM `modules`";
   $assessment_tag_query = "SELECT * FROM `assessments`";
@@ -23,6 +23,9 @@
             <a href="home.php" class="list-group-item active">
               <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard
             </a>
+            <?php
+                if ($session_role1 == 'instructor') {
+              ?>
             <a href="courses.php" class="list-group-item">
               <span class="badge"><?php echo $course_rows;?></span>
               <i class="fa fa-book" aria-hidden="true"></i> Courses
@@ -39,6 +42,7 @@
               <span class="badge"><?php echo $assessment_rows;?></span>
               <i class="fa fa-graduation-cap" aria-hidden="true"></i> Assessments
             </a>
+            <?php } ?>
             <a href="student.php" class="list-group-item">
               <span class="badge"><?php echo $user_rows;?></span>
               <i class="fa fa-users" aria-hidden="true"></i> Students

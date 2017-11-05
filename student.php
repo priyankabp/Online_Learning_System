@@ -24,12 +24,10 @@
               <li><a href="home.php"><i class="fa fa-tachometer"></i> Dashboard</a></li>
               <li class="active"><i class="fa fa-folder-open"></i> Available Quizzes</li>
             </ol>
+             <div class="col-md-9">
+                <a href="view-quizzes.php" class="btn btn-primary">View Quizzes</a>
+             </div>
           </div>
-
-          <div class="col-md-9">
-            <a href="view-quizzes.php" class="btn btn-primary">View Quizzes</a>
-          </div>
-          
         </div>
       </div>
   <?php require_once('include/footer.php'); ?>

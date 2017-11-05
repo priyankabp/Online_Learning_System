@@ -1,4 +1,8 @@
 <!-- notification message -->
+<?php
+  $session_role2 = $_SESSION['role'];
+  $session_username2 = $_SESSION['username'];
+?>
 <?php if (isset($_SESSION['success'])) : ?>
   <div class="error success" >
     <h3>
@@ -23,9 +27,13 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav navbar-right">
+            <?php
+                if ($session_role2 == 'instructor') {
+              ?>
             <li><a href="add-course.php"><i class="fa fa-book" aria-hidden="true"></i> Add Course</a></li>
             <li><a href="add-module.php"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Module</a></li>
             <li><a href="add-assessment.php"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Add Assesment</a></li>
+            <?php } ?>
             <!-- logged in user information -->
             <?php  if (isset($_SESSION['username'])) : ?>
             <li><a href="student.php"><i class="fa fa-user" aria-hidden="true"></i> Welcome <?php echo $_SESSION['username']; ?></a></li>
