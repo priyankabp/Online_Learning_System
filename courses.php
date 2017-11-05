@@ -1,15 +1,18 @@
-<?php require_once('include/top.php');
+<?php 
+  require_once('include/top.php');
+  require_once('include/config.php');
+  require_once('server.php');
+
   if (!isset($_SESSION['username'])) {
       header('Location: login.php');
   }
   elseif (isset($_SESSION['username']) && $_SESSION['role'] =='student'){
     header('Location: home.php');
    }
- ?>
-<?php require_once('include/config.php'); ?>
-<?php require_once('server.php'); ?>
 
-<?php
+   if (isset($_GET['edit'])) {
+     $edit_id = $_GET['edit'];
+   }
   # Delete Course functionality
   echo "Delet Course : '", $_GET['delete'], "'<BR> ";
   if (isset($_GET['delete'])) {
@@ -34,6 +37,29 @@
           echo "Error: " . $sql . "<br>" . $conn->error;
       }
   }
+
+  if (isset($_POST['update'])) {
+  $course_name = mysqli_real_escape_string($db,strtolower($_POST['course_name']));
+  if (empty($course_name)) {
+    $update_error = "Please add course name";
+  }
+  else{
+    $check_query = "SELECT * FROM `courses` WHERE `course_name` = '$course_name'";
+    $check_run = mysqli_query($db,$check_query);
+    if (mysqli_num_rows($check_run) > 0) {
+      $update_error = "Course name already exits";
+    }
+    else{
+      $update_query = "UPDATE `courses` SET `course_name`='$course_name' WHERE `course_id`='$edit_id'";
+      if (mysqli_query($db,$update_query)) {
+        $update_msg = "Course name updated";
+      }
+      else{
+        $update_error = "Failed to update Course Name";
+      }
+    }
+  }
+ }
 ?>
   </head>
   <body>
@@ -60,14 +86,48 @@
             ?>
             <div class="row">
               <div class="col-md-6">
-                <form action="">
+                <form action="" method="post">
                   <div class="form-group">
                     <label for="course">Course Name:</label>
                     <input type="text" name="course_name" placeholder="Course Name" class="form-control">
                   </div>
                   <input type="submit" value="Add Course" name="submit_course" class="btn btn-primary">
                 </form>
+
+                <?php 
+                  if (isset($_GET['edit'])) {
+                    $edit_check_query = "SELECT * FROM courses WHERE course_id = $edit_id";
+                    $edit_check_run = mysqli_query($db,$edit_check_query);
+                    if (mysqli_num_rows($edit_check_run) > 0 ) {
+                      
+
+                    $edit_row = mysqli_fetch_array($edit_check_run);
+                      $update_course = $edit_row['course_name'];
+                    
+                ?>
+
+                <hr>
+                <form action="" method="post">
+                  <div class="form-group">
+                    <label for="course">Update Course Name:</label>
+                    <?php 
+                          if (isset($update_msg)) {
+                            echo "<span class='pull-right' style='color:green;'>$update_msg</span>";
+                          }
+                          elseif (isset($update_error)) {
+                            echo "<span class='pull-right' style='color:red;'>$update_error</span>";
+                          }
+                    ?>
+                    <input type="text" value="<?php echo $update_course;?>" name="course_name" placeholder="Course Name" class="form-control">
+                  </div>
+                  <input type="submit" name="update" value="Update Course" class="btn btn-primary">
+                </form>
+                <?php
+                      }
+                  }
+                ?>
               </div>
+              
 
                <!-- Displaying message for the admin if the course is deleted or not-->
                 <?php
@@ -99,7 +159,7 @@
                     <tr>
                       <td><?php echo $id;?></td>
                       <td><?php echo $course_name;?></td>
-                      <td><a href="add-course.php?edit=<?php echo $id;?>"><i class="fa fa-pencil"></i></a></td>
+                      <td><a href="courses.php?edit=<?php echo $id;?>"><i class="fa fa-pencil"></i></a></td>
                       <td><a href="courses.php?delete=<?php echo $id;?>"><i class="fa fa-times"></i></a></td>
                     </tr>
                     <?php } ?>
