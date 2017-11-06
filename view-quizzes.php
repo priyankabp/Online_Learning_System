@@ -60,7 +60,7 @@ $quizDao = new quizDao($db);
                             <tr>
                                 <td><?=$i++?></td>
                                 <td><?=$row['module_name']?></td>
-                                <td><a href="newquiz.php?assessment_name=<?=$row['name'] ?>"><?=$row['name']?></td>
+                                <td><?=$row['name']?></td>
                                 <td><a href="test_run.php?assessment_name=<?=$row['name'] ?>"><i class="fa fa-caret-square-o-right"></i></a></td>
                             </tr>
                             <?php

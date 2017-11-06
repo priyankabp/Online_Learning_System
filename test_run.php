@@ -2,6 +2,7 @@
     if (!isset($_SESSION['username'])) {
       header('Location: login.php');
     }
+    $session_role6 = $_SESSION['role'];
  ?>
 <?php require_once('include/config.php'); ?>
 <?php require_once('server.php'); ?>
@@ -116,6 +117,9 @@ else if ($_GET['page'] == "fill")   {
             <?php require_once('include/left-sidebar.php'); ?>
             <table class="table">
                 <tbody>
+                <?php
+                if ($session_role6 == 'instructor') {
+                ?>
                 <tr>
                     <td>
                         <form action="mc_q.php">
@@ -138,6 +142,7 @@ else if ($_GET['page'] == "fill")   {
                     </td>
 
                 </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>

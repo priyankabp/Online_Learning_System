@@ -28,7 +28,7 @@
           </div>
 
           <div class="col-md-9">
-            <a href="allreports.php">All quizzes</a> &nbsp
+            <a href="allreports.php">All Assessments</a> &nbsp
 	          <a href="add-assessment.php">New assessment</a>
           </div>
           

@@ -5,6 +5,8 @@
   elseif (isset($_SESSION['username']) && $_SESSION['role'] =='student'){
     header('Location: home.php');
    }
+
+  $session_role5 = $_SESSION['role'];
  ?>
 <?php require_once('include/config.php'); ?>
 <?php require_once('server.php'); ?>
@@ -144,6 +146,9 @@ if ($_POST['page'] == "upload_file") {
             <?php require_once('include/left-sidebar.php'); ?>
               <table class="table">
                   <tbody>
+                  <?php
+                    if ($session_role5 == 'instructor') {
+                  ?>
                   <tr>
                       <td>
                           <form action="mc_q.php">
@@ -161,7 +166,7 @@ if ($_POST['page'] == "upload_file") {
                   <tr>
                       <td colspan=2 align="center">
                           <form action="allreports.php">
-                              <input type="submit" value="Go to all reports" name="submit_done" class="btn btn-primary">
+                              <input type="submit" value="Go to all Assessments" name="submit_done" class="btn btn-primary">
                           </form>
                       </td>
 
@@ -188,6 +193,7 @@ if ($_POST['page'] == "upload_file") {
                           </form>
                       </td>
                   </tr>
+                  <?php } ?>
                   </tbody>
               </table>
           </div>
