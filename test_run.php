@@ -23,7 +23,7 @@ if ($_GET['page'] == "mc")  {
     SELECT '${_GET['question_content']}','mc', assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
         if ($db->query($sql) === TRUE) {
-            echo "New record created successfully<br>";
+            //New record created successfullyully<br>";
         } else {
             echo "Error: " . $sql . "<br>" . $db->error;
         }
@@ -36,7 +36,7 @@ if ($_GET['page'] == "mc")  {
     SELECT '${_GET['mc_1']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
         if ($db->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
+            //New record created successfullyully";
         } else {
             echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
@@ -46,7 +46,7 @@ if ($_GET['page'] == "mc")  {
     SELECT '${_GET['mc_2']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
         if ($db->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
+            //New record created successfullyully";
         } else {
             echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
@@ -57,7 +57,7 @@ if ($_GET['page'] == "mc")  {
     SELECT '${_GET['mc_3']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
         if ($db->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
+            //New record created successfullyully";
         } else {
             echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
@@ -67,7 +67,7 @@ if ($_GET['page'] == "mc")  {
     SELECT '${_GET['mc_4']}', '$correct_answer', $question_id, assmnt.id
     from registration.assessments assmnt where name= '$asmnt_name'";
         if ($db->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
+            //New record created successfullyully";
         } else {
             echo "Error: " . $sql_answer . "<br>" . $db->error;
         }
@@ -82,7 +82,7 @@ else if ($_GET['page'] == "fill")   {
     from registration.assessments assmnt where name= '$asmnt_name'";
         //echo $sql;
         if ($db->query($sql) === TRUE) {
-            echo "New record created successfully<br>";
+            //New record created successfullyully<br>";
         } else {
             echo "Error: " . $sql . "<br>" . $db->error;
         }
@@ -96,7 +96,7 @@ else if ($_GET['page'] == "fill")   {
         //echo $sql_answer;
         //echo $sql;
         if ($db->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
+            //New record created successfullyully";
         } else {
             echo "Error: " . $sql_answer . "<br>" . $db->error;
         }

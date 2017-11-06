@@ -1,10 +1,10 @@
 <?php
   $session_role1 = $_SESSION['role'];
-  $course_tag_query = "SELECT * FROM `courses`";
-  $module_tag_query = "SELECT * FROM `modules`";
-  $assessment_tag_query = "SELECT * FROM `assessments`";
-  $user_tag_query = "SELECT * FROM `users` WHERE role = 'student'";
-  $topic_tag_query = "SELECT * FROM `topics`";
+  $course_tag_query = "SELECT * FROM registration.courses";
+  $module_tag_query = "SELECT * FROM registration.modules";
+  $assessment_tag_query = "SELECT * FROM registration.assessments";
+  $user_tag_query = "SELECT * FROM registration.users WHERE role = 'student'";
+  $topic_tag_query = "SELECT * FROM registration.topics";
 
   $course_tag_run = mysqli_query($db,$course_tag_query);
   $module_tag_run = mysqli_query($db,$module_tag_query);

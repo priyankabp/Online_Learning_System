@@ -12,7 +12,7 @@ $asmnt_name = $_GET['assessment_name'];
 ?>
     </head>
 <body>
-<?php print_r($_GET); ?>
+
 <div id="wrapper">
 <?php require_once('include/header.php'); ?>
 
@@ -75,8 +75,6 @@ $asmnt_name = $_GET['assessment_name'];
                 <input type="submit" value="Save Question" name="submit_mc_question" class="btn btn-primary">
                 <input type="hidden" name="assessment_name" value= "<?php echo $_GET['assessment_name'] ?>" >
                 </div>
-
-
             </form>
         </div>
     </div>

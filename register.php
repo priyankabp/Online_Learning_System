@@ -10,6 +10,8 @@
     $role = mysqli_real_escape_string($db, $_POST['role']);
 
     $check_query = "SELECT * FROM users WHERE username = '$username' or email = '$email'";
+
+      echo "<h5>$query</h5>";
     $check_run = mysqli_query($db,$check_query);
     // form validation: ensure that the form is correctly filled
     if (empty($username) or empty($email) or empty($password_1)) {
@@ -26,6 +28,9 @@
       $password = md5($password_1);//encrypt the password before saving in the database
       $query = "INSERT INTO `registration`.`users` (`username`, `email`, `password`,`role`) 
             VALUES('$username','$email', '$password','$role');";
+
+        echo "<h5>$query</h5>";
+
       if(mysqli_query($db, $query)){
         $msg = "New user Added";
       }
@@ -36,7 +41,7 @@
 
       $_SESSION['username'] = $username;
       //$_SESSION['success'] = "You are now logged in";
-      header('location: home.php');
+//      header('location: home.php');
     }
 
   }

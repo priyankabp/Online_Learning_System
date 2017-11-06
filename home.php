@@ -162,8 +162,12 @@
                 <div class="col-md-6">
                     <h3>Courses :</h3>
                     <?php
-                      $get_courses_query = "SELECT * FROM courses ORDER BY course_id DESC LIMIT 5";
+                      $get_courses_query = "SELECT * FROM registration.courses ORDER BY course_id DESC LIMIT 5";
                       $get_courses_run = mysqli_query($db,$get_courses_query);
+
+                        if ($get_courses_run == FALSE) {
+                            echo $db->error;
+                        }
                       if (mysqli_num_rows($get_courses_run)>0) {
                         
                     ?>

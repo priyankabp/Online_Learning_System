@@ -9,105 +9,92 @@
 <?php require_once('include/config.php'); ?>
 <?php require_once('server.php'); ?>
 <?php include_once('dao/quizDao.php');?>
+
 <?php
 $asmnt_name = $_GET['assessment_name'];
 $quizDao = new quizDao($db);
-$points = $_GET['points'];
-if (empty($points)) {
-    $points = 0;
+function equalsIgnoreCase ( $s1, $s2) {
+    return !strcasecmp ( $s1, $s2);
 }
-//$b =   $_GET['module'];
-if ($_GET['page'] == "create_assessment") {
+if ($_POST['page'] == "upload_file") {
+
+}
+else if ($_GET['page'] == "create_assessment") {
     $quizDao->createAssessment($asmnt_name, $_GET['module'], '1' );
 }
-
-if ($_GET['page'] == "mc")  {
+else if ($_GET['page'] == "mc") {
     if ($_GET['question_content']) {
-        //echo $_GET['question_content'];
+        /*
+            $quizDao->createMultiChoice('Assessment1', 'Test question 1', 40, 'r2',
+                array("Answer 1", "Answer 2", "Answer 3",  "Answer 4")
+            );
+         */
+        $quizDao->createMultiChoice($asmnt_name, $_GET['question_content'], $_GET['points'], $_GET['correct_input'],
+            array($_GET['mc_1'], $_GET['mc_2'], $_GET['mc_3'], $_GET['mc_4'])
+        );
+    }
+} else if ($_GET['page'] == "fill") {
+    if ($_GET['question_content']) {
 
-        $sql = "INSERT INTO registration.questions (content, type, assessment_id, points)
-    SELECT '${_GET['question_content']}','mc', assmnt.id, $points
-    from registration.assessments assmnt where name= '$asmnt_name'";
-        echo $sql;
-        echo "<br>";
-        if ($db->query($sql) === TRUE) {
-            echo "New record created successfully<br>";
-        } else {
-            echo "Error: " . $sql . "<br>" . $db->error;
-        }
-        //$conn->close();
-        $question_id= $db->insert_id;
-        echo "question id: ", $question_id, "<br>";
-
-        $correct_answer = $_GET['correct_input'] == 'r1' ? "y" : "n";
-        $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
-    SELECT '${_GET['mc_1']}', '$correct_answer', $question_id, assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($db->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql_answer . "<br>" . $db->error;
-        }
-
-        $correct_answer = $_GET['correct_input'] == 'r2' ? "y" : "n";
-        $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
-    SELECT '${_GET['mc_2']}', '$correct_answer', $question_id, assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($db->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql_answer . "<br>" . $db->error;
-        }
-
-
-        $correct_answer = $_GET['correct_input'] == 'r3' ? "y" : "n";
-        $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
-    SELECT '${_GET['mc_3']}', '$correct_answer', $question_id, assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($db->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql_answer . "<br>" . $db->error;
-        }
-
-        $correct_answer = $_GET['correct_input'] == 'r4' ? "y" : "n";
-        $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
-    SELECT '${_GET['mc_4']}', '$correct_answer', $question_id, assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-        if ($db->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql_answer . "<br>" . $db->error;
-        }
+        //$quizDao->createFillIn('Assessment1', 'Test question fill in', 25, 'fill in'); /
+        $quizDao->createFillIn($asmnt_name, $_GET['question_content'], $_GET['points'], $_GET['option_blank']);
     }
 }
-else if ($_GET['page'] == "fill")   {
-    if ($_GET['question_content']) {
-        //echo $_GET['question_content'];
 
-        $sql = "INSERT INTO registration.questions (content, type, assessment_id, points)
-    SELECT '${_GET['question_content']}','fi', assmnt.id, $points
-    from registration.assessments assmnt where name= '$asmnt_name'";
-        //echo $sql;
-        if ($db->query($sql) === TRUE) {
-            echo "New record created successfully<br>";
-        } else {
-            echo "Error: " . $sql . "<br>" . $db->error;
-        }
-        //$conn->close();
-        $question_id= $db->insert_id;
-        echo "question id: ", $question_id, "<br>";
+if ($_POST['page'] == "upload_file") {
+    $file = $_FILES['fileToUpload']['tmp_name'];
 
-        $sql_answer = "INSERT INTO registration.answers (answer, correct, question_id, assessment_id)
-    SELECT '${_GET['option_blank']}','y', $question_id, assmnt.id
-    from registration.assessments assmnt where name= '$asmnt_name'";
-        //echo $sql_answer;
-        //echo $sql;
-        if ($db->query($sql_answer) === TRUE) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql_answer . "<br>" . $db->error;
+    echo " file = $file \n";
+    if (($handle = fopen($file, "r")) !== FALSE) {
+
+        $all_answers = array();
+        $curr_mc_question = "";
+
+        $row = 1;
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            /*
+             * csv upload template:
+             * question type points answer correct
+             */
+            list ($question, $type, $points, $answer, $correct) = $data;
+
+            if ( $row++ == 1 && !strcasecmp($question, "question")){
+                //skip header row
+                echo "<h5>skipping the first row </h5>\n";
+                continue;
+            }
+
+            if (!strcasecmp($type, "fi")){
+                echo "<h5>row : $row createFillIn($asmnt_name, $question, $points, $answer)</h5>";
+                $quizDao->createFillIn($asmnt_name, $question, $points, $answer);
+            }
+
+
+            if (equalsIgnoreCase($type, "mc")) {
+                //for multiple choice questions we need to collect all 4 answers before calling createMultiChoice()
+
+                if (!equalsIgnoreCase($curr_mc_question, $question)) { //clear all temp vars for a new question
+                    $all_answers = array();
+                    $curr_mc_question = $question;
+                    $correct_mc_answer = "";
+                    $mc_points = "";
+                }
+                array_push($all_answers, $answer); //save answer
+
+                if (equalsIgnoreCase($correct, "y")){
+                    $correct_mc_answer = "r" . count($all_answers);
+                    $mc_points = $points;
+                }
+
+                if (count($all_answers) == 4 ) {
+                    $quizDao->createMultiChoice($asmnt_name, $question, $mc_points, $correct_mc_answer, $all_answers);
+                    $all_answers = array();
+                }
+            }
         }
+        fclose($handle);
+    } else {
+        echo "Error: no file handle for upload file\n";
     }
 }
 
@@ -177,10 +164,11 @@ else if ($_GET['page'] == "fill")   {
                               <input type="submit" value="Go to all reports" name="submit_done" class="btn btn-primary">
                           </form>
                       </td>
+
                   </tr>
                   <tr>
                       <td colspan=2 align="center">
-                          <form method="POST" action="dump.php" enctype="multipart/form-data">
+                          <form method="POST" action="" enctype="multipart/form-data">
                               <div class="form-group">
                                   <div class="input-group input-file" name="fileToUpload">
                                     <span class="input-group-btn">
@@ -194,9 +182,8 @@ else if ($_GET['page'] == "fill")   {
                               </div>
                               <!-- COMPONENT END -->
                               <div class="form-group">
-                                  <button type="submit" id="submit_file" class="btn btn-primary" disabled>
-                                      Submit
-                                  </button>
+                                  <button type="submit" id="submit_file" class="btn btn-primary" disabled>Submit</button>
+                                  <input type="hidden" name="page" value="upload_file"/>
                               </div>
                           </form>
                       </td>

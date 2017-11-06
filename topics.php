@@ -12,14 +12,11 @@
     if ($_GET['submit_topic']) {
     $sql = "INSERT INTO registration.topics (course_id,module_id,topic_name,topic_description,id_user) VALUES ('1','1','" . $_GET['topic_name'] . "','" . $_GET['topic_description'] . "','1')";
       if ($db->query($sql) === TRUE) {
-          echo "New record created successfully";
+          //echo "New record created successfully";
       } else {
           echo "Error: " . $sql . "<br>" . $db->error;
       }
     }
-
-    
-
   # Delete Topic functionality
   if (isset($_GET['delete'])) {
     # Get the id of the Topic to be deleted

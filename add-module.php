@@ -12,7 +12,7 @@
 if ($_GET['submit_module']) {
     $sql = "INSERT INTO registration.modules (module_name, id_user) VALUES ('" . $_GET['module_name'] . "', '1')";
     if ($db->query($sql) === TRUE) {
-        echo "New record created successfully";
+        //echo "New record created successfully";
     } else {
         echo "Error: " . $sql . "<br>" . $db->error;
     }
@@ -20,7 +20,7 @@ if ($_GET['submit_module']) {
 if ($_GET['submit_topic']) {
     $sql = "INSERT INTO registration.topics (course_id,module_id,topic_name,id_user) VALUES ('1','1','" . $_GET['topic_name'] . "','1')";
     if ($db->query($sql) === TRUE) {
-        echo "New record created successfully";
+        //echo "New record created successfully";
     } else {
         echo "Error: " . $sql . "<br>" . $db->error;
     }

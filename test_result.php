@@ -24,7 +24,7 @@ foreach ($_GET as $name => $value) {
         $sql = "INSERT INTO registration.test_results (assessment_id, user_id, question_id, answer,submission)
           VALUES ($assessment_id, 1, $question_id[1],'$value','$submission_id')";
         if ($db->query($sql) === TRUE) {
-            echo "New record created successfully";
+            //echo "New record created successfully";
         } else {
             echo "Error: " . $sql . "<br>" . $db->error;
         }
@@ -90,9 +90,7 @@ foreach ($_GET as $name => $value) {
                                             join registration.answers a on r.question_id = a.question_id
                                             where r.question_id = $row[id] and r.submission = '$submission_id'";
 
-                            echo $answer_query . "<br>";
-
-
+                           // echo $answer_query . "<br>";
                     if ($answer_result = $db->query($answer_query)) {
                         /* fetch associative array */
                         $mc_ul_open = FALSE;

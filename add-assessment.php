@@ -51,8 +51,6 @@
                         <input type="text" name="assessment_name" placeholder="Assessment Name" class="form-control">
                     </div>
                     <input type="submit" value="Add Assessment" name="submit_assessment" class="btn btn-primary">
-                    <input type="file" name="fileToUpload" id="fileToUpload" class="file">
-
                 </form>
             </div>
         </div>
